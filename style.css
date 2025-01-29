@@ -1,0 +1,119 @@
+
+.button {
+	background: #d3d3ff;
+    color: #3d3d3d;
+    display: flex;
+    padding: 10px;
+    font-weight: 400;
+	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);*/
+	border: 1px solid #80808038;
+	cursor: pointer;
+}
+
+.button:hover {
+	background: #7474c2;
+	color: white;
+}
+
+.button > div > i {
+	margin-right: 10px;
+}
+
+.button-icon {
+	font-size: 18px;
+    display: flex;
+    padding: 12px 20px;
+}
+
+.button-icon > i {
+	margin: auto;
+}
+
+
+
+.button-selected {
+	background: #fff268 !important;
+}
+
+.button-wrong {
+	background: #ff6868 !important;
+    color: white;
+}
+
+.button-right {
+	background: #68ff98 !important;
+}
+
+.btn-lista {
+	display: flex;
+	margin-bottom: 17px;
+}
+
+.btn-lista-txt {
+	width: 100%;
+}
+
+.btn-lista-icon {
+	width: fit-content;
+    font-size: 24px;
+	margin-left: 24px;
+	background: unset;
+    border: 0px;
+}
+
+.button > div  {
+	margin: auto
+}
+
+.border-label {
+	margin: auto;
+	border: 1px solid #8080805e;
+	padding: 10px 15px;
+}
+
+.btn-disabled {
+	background: #b9b9b9;
+}
+
+.bg-correta {
+	background: #68ff98 !important;
+}
+
+.bg-errada {
+	background: #ff6868 !important;
+}
+
+input {
+	width: 100%;
+    border: 1px solid #dedede;
+    padding: 10px;
+}
+
+.edit-icon {
+	position: relative;
+    margin-left: auto;
+    margin-top: 4px;
+    margin-right: 10px;
+}
+
+.button-icon-checkbox {
+	margin-right: 10px;
+	width: 60px;
+	background: #d5d4d4;
+}
+
+.button-icon-checkbox-checked {
+	background: red;
+}
+
+.button-icon-delete {
+	margin-left: 10px;
+	width: 60px;
+	border: 0px;
+    background: unset;
+    color: #c27474;
+}
+
+.border-radius {
+	border-radius: 5px;
+}
