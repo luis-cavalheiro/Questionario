@@ -1,5 +1,5 @@
-const NOME_QUESTIONARIO = "questionario";
-const NOME_QUESTIONARIOS_LISTA = "questionarios";
+const NOME_QUESTIONARIO = "ID_questionario";
+//const NOME_QUESTIONARIOS_LISTA = "questionarios";
 
 function aloMundo(){
     alert("alo mundo");
@@ -96,7 +96,7 @@ function salvarItemSessao(nome, valorJSON){
 function recuperarQuestionariosSessao(nome){
     valor = JSON.parse(sessionStorage.getItem(nome));
 
-    console.log(valor);
+    //console.log(valor);
 
     return valor;
 }

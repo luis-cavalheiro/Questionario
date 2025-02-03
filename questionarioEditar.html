@@ -17,38 +17,43 @@
 
         <!-- Imports -->
         <script type="text/javascript" src="questionario.js"></script>
+        <script type="text/javascript" src="db.js"></script>    
     </head>
     <body>
         <!-- EDITAR QUESTIONARIO ------------------------------------------------------------------------------------------------------------------------------------------------------>
         <div id="editar-questionario" class="container mt-5">
             <!-- botoes Superiores -->
             <div class="row mt-3">
-                <div class="col-sm-12 col-md-1 my-2">
+                <!-- Voltar -->
+                <div class="col-md-12 col-lg-1 my-2">
                     <div class="button button-icon" onclick="voltarInicial()">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2 my-2">
+                <div class="col-md-12 col-lg-2 my-2">
                 </div>
-                <div class="col-sm-12 col-md-2 my-2">
+                <!-- Excluir -->
+                <div class="col-md-12 col-lg-2 my-2">
                     <div class="button" onclick="excluirQuestionario()">
                         <div><i class="fa-solid fa-trash-can"></i> Excluir</div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2 my-2">
+                <!-- Baixar -->
+                <div class="col-md-12 col-lg-2 my-2">
                     <div class="button" onclick="baixarQuestionario()">
                         <div><i class="fa-solid fa-download"></i> Baixar</div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2 my-2">
+                <!-- Salvar -->
+                <div class="col-md-12 col-lg-2 my-2">
                     <div class="button" onclick="salvarQuestionario()">
                         <div><i class="fa-solid fa-floppy-disk"></i> Salvar</div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2 my-2">
+                <div class="col-md-12 col-lg-2 my-2">
                 </div>
             </div>
-            <!-- Titulo -->
+            <!-- Titulo Questionário -->
             <div class="row">
                 <div class="col-12  mt-5 ">
                     <h3>
@@ -61,12 +66,23 @@
                     </div>
                 </div>
             </div>
-            <!-- Alternativas -->
+
+            <!-- Listagem Perguntas -->
             <div class="col-12  mt-5 ">
                 <h3>
                     Perguntas
                 </h3>
             </div>
+              <!-- Botao Adicionar Pergunta -->
+              <div class="row mt-3">
+                <div class="col my-2"></div>
+                <div class="col-md-12 col-lg-1 my-2">
+                    <div class="button button-icon" onclick="editarPergunta(null)">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                </div>
+                <div class="col my-2"></div>
+            </div>  
             <div id="lista-perguntas" class="row">
                 <div class="col-12">
                     <div class="btn-lista">
@@ -75,51 +91,70 @@
                 </div>
             </div>
 
-            <!-- botoes Superiores -->
-            <div class="row mt-3">
-                <div class="col my-2"></div>
-                <div class="col-sm-12 col-md-1 my-2">
-                    <div class="button button-icon" onclick="editarPergunta(null)">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                </div>
-                <div class="col my-2"></div>
-            </div>
+          
         </div>
 
         <!-- EDITAR Pergunta ---------------------------------------------------------------------------------------------------------------------------------------------------- -->
         <div id="editar-pergunta" class="container mt-5">
             <!-- botoes Superiores -->
             <div class="row mt-3">
-                <div class="col-sm-12 col-md-1 my-2">
+                <div class="col-md-12 col-lg-1 my-2">
                     <div class="button button-icon" onclick="abandonarEdicaoPergunta()">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-3 my-2">
+                <div class="col-md-12 col-lg-3 my-2">
                 </div>
-                <div class="col-sm-12 col-md-2 my-2">
+                <div class="col-md-12 col-lg-2 my-2">
                     <div class="button" onclick="excluirPergunta()">
                         <div><i class="fa-solid fa-trash-can"></i> Excluir</div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2 my-2">
+                <div class="col-md-12 col-lg-2 my-2">
                     <div class="button" onclick="salvarPergunta()">
                         <div><i class="fa-solid fa-floppy-disk"></i> Salvar</div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-3 my-2">
+                <div class="col-md-12 col-lg-3 my-2">
                 </div>
             </div>
             <!-- Titulo -->
             <div class="row">
                 <div class="col-12 mt-5 mb-3">
+                    <h3>
+                        Título Pergunta
+                    </h3>
+                </div>
+                <div class="col-12 ">
                     <div>
                         <input type="text" id="editar-pergunta-titulo" onchange="mudarTextoPergunta()" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?">
                     </div>
                 </div>
             </div>
+            <!-- Card escondido -->
+            <div id="area-resposta-escondida" class="row mt-5 mb-3 border-top">
+                <div class="col-12">
+                    <h3>
+                        Card <i id="i-card" class="fa-solid fa-eye" onclick="mostrarCard()"></i>
+                    </h3>
+                </div>
+                <div id="col-card" class="col-12 mb-3" style="display:none;">
+                    <div id="card-revelar-resposta" class="sombra " style="display: flex;max-width: unset;">
+                        <div class="w-100">
+                            <textarea type="text" id="card" class="w-100 background-dica" style="min-height: 100%;" value=""  onchange="mudarCardPergunta()">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Alternativas -->
+            <div class="row border-top">
+                <div class="col-12">
+                    <h3 class="">
+                        Alternativas
+                    </h3>
+                </div>
+            </div>
             <div id="editar-pergunta-alternativas" class="row">
                 <div class="col-12">
                     <div class="btn-lista">
@@ -133,11 +168,26 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Explicacao -->
+            <div id="area-explicacao" class="row mt-5 mb-3 border-top">
+                <div class="col-12">
+                    <h3>
+                        Explicação <i id="i-explicacao" class="fa-solid fa-eye" onclick="mostrarExplicacao()"></i>
+                    </h3>
+                </div>
+                <div id="col-explicacao" class="col-12 mb-3"  style="display:none;">
+                    <div class="sombra" style="display: flex;max-width: unset;">
+                        <div class="w-100">
+                            <textarea type="text" id="explicacao" class="w-100 h-100 background-dica" value=""  onchange="mudarExplicacaoPergunta()">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- botoes Superiores -->
             <div class="row mt-3">
                 <div class="col my-2"></div>
-                <div class="col-sm-12 col-md-1 my-2">
+                <div class="col-sm-12 col-md-6 my-2">
                     <div class="button button-icon" onclick="adicionarAlternativa()">
                         <i class="fa-solid fa-plus"></i>
                     </div>
@@ -155,54 +205,47 @@
         // ----------------------------- Questionario ---------------------------
         function baixarQuestionario(){
             //console.log(listaQuestionariosRecuperada);
-            baixar(questionarioRecuperado);
+            baixarQuestionarioDB(questionarioRecuperado);
         }
 
-        function salvarQuestionario(){
-            var listaQuestionariosRecuperada = recuperarQuestionariosSessao(NOME_QUESTIONARIOS_LISTA);
-
-            var iQuestionarioAdicionar = listaQuestionariosRecuperada.questionarios.findIndex(x => x.id == questionarioRecuperado.id);
-
-            if(iQuestionarioAdicionar != -1)
-                listaQuestionariosRecuperada.questionarios[iQuestionarioAdicionar] = questionarioRecuperado;
-            else
-                listaQuestionariosRecuperada.questionarios.push(questionarioRecuperado);
-
-            salvarItemSessao(NOME_QUESTIONARIOS_LISTA, listaQuestionariosRecuperada);
-
-            voltarInicial();
-        }
-
-        function excluirQuestionario(){
-            var listaQuestionariosRecuperada = recuperarQuestionariosSessao(NOME_QUESTIONARIOS_LISTA);
-
-            var iQuestionarioExcluir = listaQuestionariosRecuperada.questionarios.findIndex(x => x.id == questionarioRecuperado.id);
-            
-            if(iQuestionarioExcluir != -1){
-                listaQuestionariosRecuperada.questionarios.splice(iQuestionarioExcluir,1);
-
-                salvarItemSessao(NOME_QUESTIONARIOS_LISTA, listaQuestionariosRecuperada);
+        async function salvarQuestionario(){
+            if (questionarioRecuperado){
+                await atualizarQuestionarioDB(questionarioRecuperado);
             }
 
             voltarInicial();
         }
 
+        async function excluirQuestionario(){
+            if (questionarioRecuperado){
+                await deletarQuestionarioDB(questionarioRecuperado);
+            }
 
-        // ----------------------------- Editar Questionario ---------------------------
-        function carregarTelaEditarQuestionario(){
-            $("#editar-questionario").css("display", "block");
-            $("#editar-pergunta").css("display", "none");
+            // var listaQuestionariosRecuperada = recuperarQuestionariosSessao(NOME_QUESTIONARIOS_LISTA);
+
+            // var iQuestionarioExcluir = listaQuestionariosRecuperada.questionarios.findIndex(x => x.id == questionarioRecuperado.id);
+            
+            // if(iQuestionarioExcluir != -1){
+            //     listaQuestionariosRecuperada.questionarios.splice(iQuestionarioExcluir,1);
+
+            //     salvarItemSessao(NOME_QUESTIONARIOS_LISTA, listaQuestionariosRecuperada);
+            // }
+
+            voltarInicial();
         }
 
+        // ----------------------------- Editar Questionario ---------------------------
+        
         function carregarTelaEditarPergunta(){
             $("#editar-questionario").css("display", "none");
             $("#editar-pergunta").css("display", "block");
         }
 
-        function carregarQuestionarioSessao(){
+        async function carregarQuestionarioSessao(){
             // Carrega questionario da sessão
-            questionarioRecuperado = recuperarQuestionariosSessao(NOME_QUESTIONARIO)
-            var listaQuestionario = recuperarQuestionariosSessao(NOME_QUESTIONARIOS_LISTA)
+            questionarioRecuperado = await getQuestionario(recuperarQuestionariosSessao(NOME_QUESTIONARIO));
+
+            //var listaQuestionario = recuperarQuestionariosSessao(NOME_QUESTIONARIOS_LISTA)
 
             if (!questionarioRecuperado){
                 questionarioRecuperado = {
@@ -210,37 +253,75 @@
                     data: [
 
                     ],
-                    id: gerarNovoId(listaQuestionario.questionarios)
+                    //id: gerarNovoId(listaQuestionario.questionarios)
                 }
             }
-            else
-                carregarQuestionario();
+             
+            carregarQuestionario();
+        }
+
+        carregarQuestionarioSessao();
+
+        function carregarTelaEditarQuestionario(){
+            $("#editar-questionario").css("display", "block");
+            $("#editar-pergunta").css("display", "none");
         }
 
         // Carregar dados do questionario para editar
         function carregarQuestionario(){
             carregarTelaEditarQuestionario();
 
-            // Preenche campo do titulo do questionario
-            $("#titulo-questionario").val(questionarioRecuperado.name);
+            if (questionarioRecuperado){
+                // Preenche campo do titulo do questionario
+                $("#titulo-questionario").val(questionarioRecuperado.name);
 
-            // Carrega todas as questoes do questionario
-            var htmlPerguntas = "";
-            for(let item of questionarioRecuperado.data){
-                htmlPerguntas += `
-                    <div class="col-12">
-                        <div class="btn-lista" onclick="editarPergunta(${item.id})">
-                            <div class="button btn-lista-txt">${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i></div>    
-                        </div>
-                    </div>
-                `;
+                // Carrega todas as questoes do questionario
+                var htmlPerguntas = "";
+
+                if (questionarioRecuperado.data != null)
+                    for(let i = questionarioRecuperado.data.length - 1; i >= 0; i--){
+                        let item = questionarioRecuperado.data[i];
+
+                        htmlPerguntas += `
+                            <div class="col-md-12 col-lg-11 mb-4">
+                                <div class="btn-lista" onclick="editarPergunta(${item.id})">
+                                    <div class="button btn-lista-txt">
+                                        <div>
+                                            ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-1 mb-4">
+                                <div class="button button-icon" onclick="copiarPergunta(${item.id})">
+                                    <i class="fa-solid fa-copy"></i>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                // for(let item of questionarioRecuperado.data){
+                //     htmlPerguntas += `
+                //         <div class="col-md-12 col-lg-11 mb-4">
+                //             <div class="btn-lista" onclick="editarPergunta(${item.id})">
+                //                 <div class="button btn-lista-txt">
+                //                     <div>
+                //                         ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
+                //                     </div>
+                //                 </div>    
+                //             </div>
+                //         </div>
+                //         <div class="col-md-12 col-lg-1 mb-4">
+                //             <div class="button button-icon" onclick="copiarPergunta(${item.id})">
+                //                 <i class="fa-solid fa-copy"></i>
+                //             </div>
+                //         </div>
+                //     `;
+                // }
+
+                $("#lista-perguntas").html(htmlPerguntas);
             }
-
-            $("#lista-perguntas").html(htmlPerguntas);
         }
-
-        carregarQuestionarioSessao();
-        carregarQuestionario();
 
         function mudarTextoTitulo(){
             var novoValor = $("#titulo-questionario").val();
@@ -250,6 +331,37 @@
         // ----------------------------- Editar Pergunta ---------------------------
       
         // Carrega uma pergunta do questionario para ediçao ou abre uma nova pergunta vazia
+        function copiarPergunta(id){
+            // Encontrar dados da pergunta
+            iPergunta = questionarioRecuperado.data.findIndex(x => x.id == id);
+
+            if (iPergunta != -1){
+                carregarTelaEditarPergunta();
+
+                var perguntaCopiada = questionarioRecuperado.data[iPergunta];
+
+                perguntaEditada = {
+                    name: perguntaCopiada.name,
+                    escondida: perguntaCopiada.escondida,
+                    dica: perguntaCopiada.dica,
+                    data: [],
+                    // Gera um novo id para a pergunta, que nao conflite com as outras perguntas
+                    id: gerarNovoId(questionarioRecuperado.data)
+                }
+
+                for (let item of perguntaCopiada.data){
+                    perguntaEditada.data.push({
+                        name: item.name,
+                        id: gerarNovoId(perguntaEditada.data),
+                        correta: item.correta
+                    });
+                }
+
+                console.log("copiou pergunta");
+                mostrarPergunta();
+            }
+        }
+
         function editarPergunta(id){
             carregarTelaEditarPergunta();
 
@@ -257,9 +369,14 @@
                 perguntaEditada = {
                     name: 'Nova Pergunta',
                     data: [{
-                        name: 'Nova Alternativa',
+                        name: 'Certo',
                         correta: true,
                         id: 0
+                    },
+                    {
+                        name: 'Errado',
+                        correta: false,
+                        id: 1
                     }],
                     // Gera um novo id para a pergunta, que nao conflite com as outras perguntas
                     id: gerarNovoId(questionarioRecuperado.data)
@@ -277,6 +394,9 @@
             mostrarPergunta();
         }
 
+        const fileInput = document.getElementById('fileInput');
+        const reader = new FileReader();
+
         // Mostra pergunta a ser editada na tela
         function mostrarPergunta(){
             console.log(perguntaEditada);
@@ -284,32 +404,92 @@
             // Preenche campo de texto da pergunta
             $("#editar-pergunta-titulo").val(perguntaEditada.name);
 
+            // Carregar card dica
+            $("#card").val(perguntaEditada.escondida ? perguntaEditada.escondida : "");
+
+            mostrarCard(typeof perguntaEditada.escondida == "undefined" ? false : true);
+
+            // Explicação
+            $("#explicacao").val(perguntaEditada.dica ? perguntaEditada.dica : "");
+
+            mostrarExplicacao(typeof perguntaEditada.dica == "undefined" ? false : true);
+
             // Carrega alternativas
             let htmlAlternativas = "";
             for(let item of perguntaEditada.data){
+                var img = "";
+
+                if (item.img)
+                    img = `<div class="w-100 mb-5">
+                            <img id="img-${item.id}" src="${item.img}"/>
+                        </div>`;
+
                 // Se a alternativa for a correta, sinaliza 
                 htmlAlternativas += `
-                    <div class="col-12">
-                        <div class="btn-lista">
-                            <div class="button button-icon button-icon-checkbox ${item.correta ? "button-icon-checkbox-checked" : ""}" onclick="selecionarAlternativaCorreta(${item.id})">
-                                <i class="fa-solid fa-check" style="display:none"></i>
-                            </div>
-                            <input type="text" id="alternativa-${item.id}" class="alternativa" value="${item.name}" onchange="mudarTextoAlternativa(${item.id})">
-                            <div class="button button-icon button-icon-delete" onclick="removerAlternativa(${item.id})">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </div>
-                        </div>
+                    <div class="col-12 mb-4">
+                        <div class="btn-lista row w-100">
+                                <div class="col-md-12 col-lg-1 my-3">
+                                    <div class="button w-100 button-icon button-icon-checkbox ${item.correta ? "button-icon-checkbox-checked" : ""}" onclick="selecionarAlternativaCorreta(${item.id})">
+                                        <i class="fa-solid fa-check" style="color: #d5d4d4"></i>
+                                    </div>  
+                                </div>
+                                <div class="col-md-12 col-lg-2 my-3">
+                                    <div class="img-upload">
+                                        <label for="image-input-${item.id}" class="button">
+                                            <div><i class="fa-solid fa-upload"></i> Imagem</div>
+                                        </label>
+                                        <input type="file" id="image-input-${item.id}" onchange="handleImageUpload('${item.id}')" class="button"  accept=".png,.jpeg, .jpg" style="display:none;">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-8 my-3">
+                                    <textarea type="text" id="alternativa-${item.id}" class="alternativa w-100 h-100"  onchange="mudarTextoAlternativa(${item.id})">${item.name}</textarea>
+                                </div>
+                                <div class="col-md-12 col-lg-1 my-3">
+                                    <div class="button button-icon button-icon-delete" onclick="removerAlternativa(${item.id})">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </div>
+                                </div>
+                        </div>   
+                        ${img}
                     </div>
                 `;
             }
             $("#editar-pergunta-alternativas").html(htmlAlternativas);
         }
 
+        // Function to handle image file input and convert it to base64
+        function handleImageUpload(id) {
+            const file = $(`#image-input-${id}`)[0].files[0];
+
+            // Check if a file was selected
+            if (file) {
+                const reader = new FileReader();
+                
+                // Read the file as a Data URL (base64 encoded string)
+                reader.readAsDataURL(file);
+                
+                reader.onload = function() {
+                    let iAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
+
+                    if (iAlternativa != -1){
+                         // Save the base64 string in the object
+                        perguntaEditada.data[iAlternativa].img =  reader.result;
+                        
+                        mostrarPergunta();
+                    }
+                };
+                
+                reader.onerror = function(error) {
+                    console.log('Error reading file:', error);
+                };
+            }
+        }
+
         // Adiciona uma alternativa a uma pergunta
         function adicionarAlternativa(){
             // gerarNovoId(perguntaEditada.data)
             perguntaEditada.data.push({
-                    name: 'Nova Alternativa',
+                    name: '',
                     correta: false,
                     id: gerarNovoId(perguntaEditada.data)
                 });
@@ -333,7 +513,8 @@
             console.log("Selecionando alternativa " + id);
 
             for(let item of perguntaEditada.data){
-                item.correta = item.id == id;
+                if (item.id == id)
+                    item.correta = !item.correta;
             }
 
             mostrarPergunta();
@@ -342,6 +523,13 @@
         // Salva alteraçoes da pergunta no questionario
         function salvarPergunta(){
         let iPerguntaEncontrada = questionarioRecuperado.data.findIndex(x => x.id == perguntaEditada.id);            
+
+        // É multipla escolha?
+        var corretas = 0;
+        for(let alternativa of perguntaEditada.data)
+            corretas += corretas + alternativa.correta ? 1 : 0;
+
+        perguntaEditada.multiplaEscolha = (corretas > 0);
         
         // Se a pergunta já existe
         if (iPerguntaEncontrada != -1){
@@ -367,10 +555,20 @@
            var iAlternativa = perguntaEditada.data.findIndex( x => x.id == id);
 
            if (iAlternativa != -1){
-            perguntaEditada.data[iAlternativa].name = novoValor;
+                perguntaEditada.data[iAlternativa].name = novoValor;
            }
         }
     
+        function mudarCardPergunta(){
+            var novoValor = $("#card").val();
+            perguntaEditada.escondida = novoValor;
+        }
+
+        function mudarExplicacaoPergunta(){
+            var novoValor = $("#explicacao").val();
+            perguntaEditada.dica = novoValor;
+        }
+
         // Exclui uma pergunta do questionario
         function excluirPergunta(){
         let iPerguntaDeletar = questionarioRecuperado.data.findIndex( x => x.id == perguntaEditada.id);
@@ -390,6 +588,28 @@
 
         function abandonarEdicaoPergunta(){
             carregarQuestionario();
+        }
+    
+        function mostrarCard(mostrar){
+            if (typeof mostrar != "boolean")
+                mostrar = $("#i-card").hasClass("fa-eye");
+
+            $("#i-card").removeClass("fa-eye fa-eye-slash");
+
+            $("#i-card").addClass(mostrar ? "fa-eye-slash" :  "fa-eye");
+
+            $("#col-card").css("display", mostrar? "block" : "none");
+        }
+
+        function mostrarExplicacao(mostrar){
+            if (typeof mostrar != "boolean")
+                mostrar = $("#i-explicacao").hasClass("fa-eye");
+
+            $("#i-explicacao").removeClass("fa-eye fa-eye-slash");
+
+            $("#i-explicacao").addClass(mostrar ? "fa-eye-slash" :  "fa-eye");
+
+            $("#col-explicacao").css("display", mostrar? "block" : "none");
         }
     </script>
 </html>

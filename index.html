@@ -18,26 +18,30 @@
         <!-- Imports -->
         <script type="text/javascript" src="questionario.js"></script>
         <script type="text/javascript" src="questTeste.js"></script>
+        <script type="text/javascript" src="db.js"></script>
     </head>
     <body>
         <!-- Botoes superior -->
         <div class="container mt-5">
+            <!-- botoes -->
             <div class="row">
-                <div class="col-md-12 col-lg-4">
+                <!-- Criar -->
+                <div class="col-md-12 col-lg-4 mb-5">
                     <div class="button" onclick="editarQuestionario(null)">
                         <div><i class="fa-solid fa-plus"></i> Criar</div>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-4">
+                <!-- Carregar-->
+                <div class="col-md-12 col-lg-4 mb-5">
                     <label for="fileInput" class="button">
                         <div><i class="fa-solid fa-upload"></i> Carregar</div>
                     </label>
                     <input type="file" id="fileInput" class="button"  accept=".txt,.json" style="display:none;">
-                    
                 </div>
-                <div class="col-md-12 col-lg-4">
+                <!-- Baixar -->
+                <div class="col-md-12 col-lg-4 mb-5">
                     <div class="button" onclick="salvarQuestionarios()">
-                        <div><i class="fa-solid fa-download"></i> Baixar</div>
+                           <div><i class="fa-solid fa-download"></i> Baixar</div>
                     </div>
                 </div>
             </div>   
@@ -55,32 +59,37 @@
     </body>
 
     <script>
-        // Tenta recuperar a lista da sessão
-        var listaQuestionariosRecuperada = recuperarQuestionariosSessao(NOME_QUESTIONARIOS_LISTA);
-        
-        if (!listaQuestionariosRecuperada){
-            // Identifica todos os itens dos questionarios
-            identificarTudo(questionarios.questionarios);
-            
-            // Salva a lista na sessão
-            salvarItemSessao(NOME_QUESTIONARIOS_LISTA, questionarios);
+        var listaQuestionariosRecuperada;
 
-            // Utiliza a lista salva
-            listaQuestionariosRecuperada = questionarios;
+        async function inicializar(){
+            // Tenta recuperar a lista da sessão
+            listaQuestionariosRecuperada = await recuperarListaQuestionarios();
+
+            // Se nao recuperou 
+            if (!listaQuestionariosRecuperada || listaQuestionariosRecuperada.length == 0){
+                await carregarArquivo(JSON.stringify(questonarioTeste));
+
+                // Utiliza a lista salva
+                listaQuestionariosRecuperada = await recuperarListaQuestionarios();
+            }
+
+            listarQuestionarios(listaQuestionariosRecuperada);
         }
 
+        inicializar();
+       
         // Listar questionarios disponiveis para fazer
         function listarQuestionarios(listaQuestionarios){
             var html = '';
 
-            for(let i = 0; i < listaQuestionarios.questionarios.length; i++){
+            for(let i = 0; i < listaQuestionariosRecuperada.length; i++){
                 html += `
-                    <div class="col-12">
+                    <div class="col-12 mb-4">
                         <div class="btn-lista">
                             <!-- Titulo do Questionario -->
-                            <div class="button btn-lista-txt" onclick="iniciarQuestionario(${i})">${listaQuestionarios.questionarios[i].name}</div>
+                            <div class="button btn-lista-txt" onclick="iniciarQuestionario(${listaQuestionariosRecuperada[i].id})"><div>${listaQuestionariosRecuperada[i].name}     - ${listaQuestionariosRecuperada[i].data.length}</div></div>
                             <!-- Btn editar questionario -->
-                            <div class="button btn-lista-icon" onclick="editarQuestionario(${i})"><i class="fa-solid fa-pen-to-square"></i></div>        
+                            <div class="button btn-lista-icon" onclick="editarQuestionario(${listaQuestionariosRecuperada[i].id})"><i class="fa-solid fa-pen-to-square"></i></div>        
                         </div>
                     </div>
                 `;
@@ -89,12 +98,10 @@
             $("#row-questionarios").html(html);
         }
 
-        listarQuestionarios(listaQuestionariosRecuperada);
-
         // Iniciar questionario escolhido
         function iniciarQuestionario(i){
             // Salva o questionario na sessão
-            salvarItemSessao(NOME_QUESTIONARIO, listaQuestionariosRecuperada.questionarios[i]);
+            salvarItemSessao(NOME_QUESTIONARIO, i);
 
             // Abre a página de fazer questionario
             window.location.href = "questionario.html";
@@ -105,9 +112,9 @@
             // Se um questionario for selecionado
             if (i != null)
                 // Salva o questionario na sessão
-                salvarItemSessao(NOME_QUESTIONARIO, listaQuestionariosRecuperada.questionarios[i]);
+                salvarItemSessao(NOME_QUESTIONARIO, i);
             else
-            salvarItemSessao(NOME_QUESTIONARIO, null);
+                salvarItemSessao(NOME_QUESTIONARIO, null);
 
             // Abre a página de ediçao
             window.location.href = "questionarioEditar.html";
@@ -118,28 +125,10 @@
         const reader = new FileReader();
 
         reader.onload = (e) => {
-            var novoQuestionario = e.target.result;
-            var listaCarregada = JSON.parse(novoQuestionario);
+            var dadosArquivo = e.target.result;
+            
+            carregarArquivo(dadosArquivo);
 
-            if (listaCarregada){
-
-                if (listaCarregada.questionarios){
-                    console.log('carregando lista de questionários...');
-                    // Carregar lista de questionarios
-                    listaQuestionariosRecuperada = listaCarregada;
-                }
-                else {
-                    console.log('carregando um único questionário...');
-                    // Adicionar questionario único
-                    listaQuestionariosRecuperada.questionarios.push(listaCarregada);
-                }
-                
-                identificarTudo(listaQuestionariosRecuperada.questionarios);
-                salvarItemSessao(NOME_QUESTIONARIOS_LISTA, listaQuestionariosRecuperada);
-            }
-
-            listarQuestionarios(listaQuestionariosRecuperada);
-           
             // Or, if you want to display an image:
             // if (file.type.startsWith('image/')) {
             //   const img = document.createElement('img');
@@ -147,6 +136,38 @@
             //   fileContentDiv.appendChild(img);
             // }
         };
+
+        async function carregarArquivo(dadosArquivo){
+            var listaCarregada = JSON.parse(dadosArquivo);
+
+            if (listaCarregada){
+                // Se é uma lista
+                if (Array.isArray(listaCarregada)){
+                    // Atualiza Database para incluir os itens da lista
+                    for(let item of listaCarregada){
+                        // Tira o id para adicionar como um novo item
+                        delete item.id;
+
+                        // Adicionar item no DB
+                        await atualizarQuestionarioDB(item);
+                    }
+                }
+                // Se é um único questionário
+                else {
+                    // Atualiza Database para incluir o questionario
+
+                    // Tira o id para adicionar como um novo item
+                    delete listaCarregada.id;
+
+                    // Adicionar item no DB
+                    await atualizarQuestionarioDB(listaCarregada);
+                }
+
+                // Atualizar lista recuperada
+                listaQuestionariosRecuperada = listaCarregada;
+                await inicializar();
+            }
+        }
 
         reader.onerror = (e) => {
             console.log("Error reading file: " + e.target.error.message);
@@ -169,7 +190,8 @@
 
         function salvarQuestionarios(){
             //console.log(listaQuestionariosRecuperada);
-            baixar(listaQuestionariosRecuperada);
+            //baixar(listaQuestionariosRecuperada);
+            baixarDB();
         }
     </script>
 </html>

@@ -17,6 +17,7 @@
 
         <!-- Imports -->
         <script type="text/javascript" src="questionario.js"></script>
+        <script type="text/javascript" src="db.js"></script>
     </head>
     <body>
         <!-- TELA responder questionario ---------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -25,50 +26,71 @@
 
             </h1>
             <!-- Texto da Pergunta -->
-            <div class="row">
+            <div class="row" style="margin-top: 2vh;margin-bottom: 2vh;">
                 <div class="col-12 mb-3">
-                    <div id="pergunta">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</div>
+                    <div id="pergunta" style="font-weight:400">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</div>
+                </div>
+            </div>
+            <!-- Escondido -->
+            <div id="area-resposta-escondida" class="row" style="display:none;">
+                <div class="col-12 mb-3">
+                    <div id="card-revelar-resposta" class="card-resposta sombra" onclick="revelarEscondida()">
+                        <div>
+                            猫
+                        </div>
+                    </div>
+                    <div id="resposta-escondida" style="display:none;">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?
+                    </div>
                 </div>
             </div>
             <!-- Alternativas -->
-            <div id="row-alternativas" class="row" style="padding-top: 10px;padding-bottom: 10px;">
+            <div id="row-alternativas" class="row" style="padding-top: 10px;padding-bottom: 10px;border-radius: 5px;">
                 <div class="col-12">
                     <div class="btn-lista">
                         <div class="button button-selected btn-lista-txt">Resposta 1</div>    
                     </div>
                 </div>
             </div>
-
+            <!-- Explicaçao resposta -->
+            <div id="row-explicacao" class="row" style="padding-top: 10px;padding-bottom: 10px;border-radius: 5px;">
+                <div class="col-12">
+                    <div class="dica">
+                        Dica aqui
+                    </div>
+                </div>
+            </div>
             <!-- botoes inferiores -->
              <div class="row mt-3">
                  <!-- Botoes Voltar Pergunta -->
-                <div class="col-sm-12 col-md-1 my-2">
+                <div class="col-sm-6 my-2">
                     <div class="button button-icon" onclick="mudarQuestao(iQuestao-1);">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
                 </div>
                 <!-- Botoes Avançar Pergunta Col-->
-                <div class="col-sm-12 col-md-1 my-2">
+                <div class="col-sm-6 my-2">
                     <div class="button button-icon" onclick="mudarQuestao(iQuestao+1);">
                         <i class="fa-solid fa-chevron-right"></i>
                     </div>
                 </div>
                 <!-- Btn Sair -->
-                <div class="col-sm-12 col-md-2 my-2">
-                    <div class="button" onclick="finalizarQuestionario()">
+                <div class="col-sm-12 col-md-6 my-2">
+                    <div class="button m-auto" onclick="finalizarQuestionario()">
                         <div><i class="fa-solid fa-person-walking-arrow-right"></i> Terminar</div>
                     </div>
                 </div>
-                <!-- Paginaçao -->
-                <div class="col-sm-12 col-md my-2">
-                    <div style="height: 100%;display: flex;">
-                        <div id="paginacao-questionario" class="border-label">10/60</div>
+                
+                <!-- Btn Responder Pergunta -->
+                <div class="col-sm-12 col-md-6 my-2">
+                    <div id="btn-responder" class="button m-auto" onclick="avancarQuestionario()">
+                        <div ><i class="fa-solid fa-check"></i> Responder</div>
                     </div>
                 </div>
-                <!-- Btn Responder Pergunta -->
-                <div class="col-sm-12 col-md-4 my-2">
-                    <div id="btn-responder" class="button" onclick="avancarQuestionario()">
-                        <div ><i class="fa-solid fa-check"></i> Responder</div>
+                 <!-- Paginaçao -->
+                 <div class="col-sm-12 col-md-12 my-2">
+                    <div style="height: 100%;display: flex;">
+                        <div id="paginacao-questionario" class="border-label">10/60</div>
                     </div>
                 </div>
              </div>
@@ -104,19 +126,19 @@
             <!-- botoes inferiores -->
             <div class="row mt-3">
                 <!-- Voltar página -->
-                <div class="col-sm-12 col-md-1 my-2">
+                <div class="col-md-12 col-lg-2 my-2">
                     <div class="button button-icon" onclick="irParaHome()">
                         <i class="fa-solid fa-house"></i>
                     </div>
                 </div>
                 <!-- Btn Refazer Erradas-->
-                <div id="btn-refazer" class="col-sm-12 col-md my-2">
+                <div id="btn-refazer" class="col-md-12 col-lg my-2">
                     <div class="button" onclick="refazerErradas()">
                         <div><i class="fa-solid fa-microscope"></i> Refazer Erradas</div>
                     </div>
                 </div>
                 <!-- Btn Refazer Questionario-->
-                <div class="col-sm-12 col-md my-2">
+                <div class="col-md-12 col-lg my-2">
                     <div class="button" onclick="refazerQuestionario()">
                         <div><i class="fa-solid fa-repeat"></i> Refazer tudo</div>
                     </div>
@@ -132,13 +154,14 @@
 
         document.onkeypress = function (e) {
             //e = e || window.event;
-            if (e.keyCode == 32)
+            if (e.keyCode == 32){
                 avancarQuestionario();
+            }
         };
 
-        function iniciarPaginaDeQuestionario(){
+        async function iniciarPaginaDeQuestionario(){
             // Pega o questioanrio da sessão
-            questionarioRecuperado = recuperarQuestionariosSessao(NOME_QUESTIONARIO)
+            questionarioRecuperado = await getQuestionario(recuperarQuestionariosSessao(NOME_QUESTIONARIO));
 
             if (questionarioRecuperado != null)
                 iniciarQuestionarioRecuperado();
@@ -203,14 +226,32 @@
             // Titulo da pergunta
             $("#pergunta").html(pergunta.name);
 
+            // Dica
+            $(".dica").css("display", "none");
+
+            // Resposta Escondida
+            $("#area-resposta-escondida").css('display', pergunta.escondida ? 'block' : 'none');
+            $("#card-revelar-resposta").css('display','flex');
+            $("#resposta-escondida").css('display','none');
+
+            if (pergunta.escondida)
+                $("#resposta-escondida").html(pergunta.escondida);
+            
+
             // Alternativas
             var alternativas = '';
 
             for(let item of pergunta.data){
                 alternativas += `
-                    <div class="col-12">
+                    <div class="col-12 mb-4">
                         <div id="alternativa-${item.id}" class="btn-lista" onclick="selecionarNovaAlternativa(${item.id})">
-                            <div class="button  btn-lista-txt">${item.name}</div>    
+                            <div class="button  btn-lista-txt">
+                                <div class="alternativa">
+                                    ${item.name ? item.name + "</br>" : ""}
+                                    ${item.img ? '<img src="'+ item.img + '">' : ""}
+                                    
+                                </div>
+                            </div>    
                         </div>
                     </div>`
             }
@@ -238,7 +279,11 @@
 
         function avancarQuestionario(){
             // Se a alternativa ainda nao foi respondida
-            if(!jaRespondida())
+            if (!jaRevelada()){
+                console.log(jaRevelada());
+                revelarEscondida();
+            }
+            else if(!jaRespondida())
                 responderQuestao();
             else if (iQuestao + 1 < questionarioRecuperado.data.length)
                 // Se a alternativa já foi respondida e ainda tem questoes a responder
@@ -253,10 +298,19 @@
             if (jaRespondida())
                 return;
 
+            var isMultiplaEscolha = questionarioRecuperado.data[iQuestao].multiplaEscolha;
+
             for(let alternativa of questionarioRecuperado.data[iQuestao].data){
-                var escolhida = alternativa.id == idAlternativa;
-                alternativa.escolhida = escolhida;
+                //var escolhida = alternativa.id == idAlternativa;
+
+                if (!isMultiplaEscolha)
+                    alternativa.escolhida = alternativa.id == idAlternativa;
+                else if (alternativa.id == idAlternativa){
+                    console.log("Trocando " + idAlternativa);
+                    alternativa.escolhida = !alternativa.escolhida;
+                }
             }
+                    
 
             selecionarAlternativa();
         }
@@ -296,22 +350,40 @@
             questionarioRecuperado.data[iQuestao].respondida = true;
 
             sinalizarAlternativaRespondida();
+
+            mostrarDica();
         }
 
         function sinalizarAlternativaRespondida(){
-            // Pinta alternativa correta
-            let iCorreta = questionarioRecuperado.data[iQuestao].data.findIndex( x => x.correta == true);
-            $(`#alternativa-${questionarioRecuperado.data[iQuestao].data[iCorreta].id} > div`).addClass("bg-correta");
-
-            // Se alternativa correta != selecionada, pinta a alternativa selecionada
-            if (!questionarioRecuperado.data[iQuestao].data[iCorreta].escolhida){
-                // acha alternativa escolhida
-                let iEscolhida = questionarioRecuperado.data[iQuestao].data.findIndex( x => x.escolhida == true);
-
-                $(`#alternativa-${questionarioRecuperado.data[iQuestao].data[iEscolhida].id} > div`).addClass("bg-errada");
+            for(let item of questionarioRecuperado.data[iQuestao].data){
+                if (item.correta)
+                    // Pinta alternativa correta
+                    $(`#alternativa-${item.id} > div`).addClass("bg-correta");
+                else if (item.escolhida)
+                    $(`#alternativa-${item.id} > div`).addClass("bg-errada");
             }
 
+            // // Pinta alternativa correta
+            // let iCorreta = questionarioRecuperado.data[iQuestao].data.findIndex( x => x.correta == true);
+            // $(`#alternativa-${questionarioRecuperado.data[iQuestao].data[iCorreta].id} > div`).addClass("bg-correta");
+
+            // // Se alternativa correta != selecionada, pinta a alternativa selecionada
+            // if (!questionarioRecuperado.data[iQuestao].data[iCorreta].escolhida){
+            //     // acha alternativa escolhida
+            //     let iEscolhida = questionarioRecuperado.data[iQuestao].data.findIndex( x => x.escolhida == true);
+
+            //     if (iEscolhida != -1)
+            //         $(`#alternativa-${questionarioRecuperado.data[iQuestao].data[iEscolhida].id} > div`).addClass("bg-errada");
+            // }
+
             mudarBotaoResponder();
+        }
+
+        function mostrarDica(){
+            $(".dica").css("display", questionarioRecuperado.data[iQuestao].dica? "block" : "none");
+
+            if ( questionarioRecuperado.data[iQuestao].dica)
+                $(".dica").html( questionarioRecuperado.data[iQuestao].dica);
         }
 
         function finalizarQuestionario(){
@@ -391,7 +463,7 @@
             // Foi respondido?
             if (questionarioRecuperado.data[iQuestao].respondida){
                 etapa = 2;
-                if (questionarioRecuperado.data[iQuestao].data[iSelecionada].correta){
+                if (iSelecionada != -1 && questionarioRecuperado.data[iQuestao].data[iSelecionada].correta){
                     $("#btn-responder").addClass("bg-correta");
                     correta = true;
                 }
@@ -405,18 +477,23 @@
 
                 switch(etapa){
                     case 0:
-                        $("#row-alternativas").css({border: "0px"});
-                        $("#btn-responder > div").html("<i class='fa-regular fa-hand-pointer'></i> Selecione uma alternativa"); 
+                        $("#row-alternativas").css({background: "unset"});
+                        $("#btn-responder > div").html("<i class='fa-regular fa-hand-pointer'></i> Selecione"); 
                         break;
                     case 1:
-                        $("#row-alternativas").css({border: "0px"});
+                        $("#row-alternativas").css({background: "unset"});
                         $("#btn-responder > div").html("<i class='fa-solid fa-check'></i> Responder"); 
                         break;
                     case 2:
-                        $("#row-alternativas").css({border: `2px solid ${correta ? '#68ff98' : '#ff6868'}`}); 
+                        $("#row-alternativas").css({background: `${correta ? '#b7f9d1' : '#ffdcdc'}`}); 
                         $("#btn-responder > div").html("<i class='fa-solid fa-check-double'></i> Avançar"); 
                         break;
                 }
+        }
+
+        // Verificar se a dica foi revelada
+        function jaRevelada(){
+            return (questionarioRecuperado.data[iQuestao] && questionarioRecuperado.data[iQuestao].escondida) ? ($("#resposta-escondida").css("display") == "block") : true
         }
 
         // Verificar se a questao já foi repsondida
@@ -459,5 +536,10 @@
 
             iniciarQuestionarioRecuperado();
         }
-    </script>
+   
+        function revelarEscondida(){
+            $("#card-revelar-resposta").css('display','none');
+            $("#resposta-escondida").css('display','block');
+        }
+   </script>
 </html>

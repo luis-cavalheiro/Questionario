@@ -1,13 +1,73 @@
+body {
+	font-weight: 300;
+	font-size: 1.25em;
+}
+
+i { 
+	font-size: 1.25em;
+	margin: auto;
+}
+
+img {
+	max-height: 200px;
+}
+
+@media only screen and (max-width: 1000px) {
+	body {
+		font-size: 3em;	
+	}
+
+	i {
+		font-size: 1.5em;
+	}
+}
+
+.container {
+	max-width: 93vw !important	;
+}
+
+.card-resposta {
+	max-width: 500px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    background: #ffdd9d;
+    height: 50px;
+    border-radius: 5px;
+	cursor: pointer;
+	min-height: fit-content;
+}
+
+.card-resposta > div {
+	margin:auto;
+	font-size: 2em;
+    font-weight: bold;
+    color: #434343;
+}
+
+#resposta-escondida {
+	background: #ffdd9d54;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
+.sombra {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
 
 .button {
-	background: #d3d3ff;
-    color: #3d3d3d;
+	background: #5f5f5f;
+    color: white;
     display: flex;
     padding: 10px;
     font-weight: 400;
-	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);*/
-	border: 1px solid #80808038;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+	/*border: 1px solid #80808038;*/
 	cursor: pointer;
+	border-radius: 5px;
+	min-height: 8vh;
+    height: fit-content;
 }
 
 .button:hover {
@@ -23,6 +83,7 @@
 	font-size: 18px;
     display: flex;
     padding: 12px 20px;
+    height: fit-content;
 }
 
 .button-icon > i {
@@ -46,19 +107,27 @@
 
 .btn-lista {
 	display: flex;
-	margin-bottom: 17px;
+	min-height: 8vh;
 }
+
+
 
 .btn-lista-txt {
 	width: 100%;
+	background: #f7f7f7;
+	color: #3d3d3d;
 }
 
 .btn-lista-icon {
 	width: fit-content;
-    font-size: 24px;
 	margin-left: 24px;
 	background: unset;
     border: 0px;
+    height: fit-content;
+	border-radius: 5px;
+	color: #5f5f5f;
+	box-shadow: unset;
+	width: 25%;
 }
 
 .button > div  {
@@ -67,8 +136,9 @@
 
 .border-label {
 	margin: auto;
-	border: 1px solid #8080805e;
+	/*border: 1px solid #8080805e;*/
 	padding: 10px 15px;
+	border-radius: 5px;	
 }
 
 .btn-disabled {
@@ -87,6 +157,7 @@ input {
 	width: 100%;
     border: 1px solid #dedede;
     padding: 10px;
+	min-height: 8vh;
 }
 
 .edit-icon {
@@ -103,17 +174,63 @@ input {
 }
 
 .button-icon-checkbox-checked {
-	background: red;
+	background: #5e66e4;
 }
 
 .button-icon-delete {
 	margin-left: 10px;
 	width: 60px;
 	border: 0px;
-    background: unset;
+    background: unset !important;
+	box-shadow: unset;	
     color: #c27474;
+	margin:auto;
+}
+
+.button-icon-delete:hover {
+	background: #c27474 !important;
+    color: white;
 }
 
 .border-radius {
 	border-radius: 5px;
+}
+
+.button > div,.alternativa {
+	margin-right: auto;
+    margin-left: 10px;
+    text-align: left;
+	font-weight: 300;	
+}
+
+.m-auto > div {
+	margin: auto !important;
+}
+
+.dica {
+	background: #ffdd9d54;
+    border-radius: 5px;
+    padding: 10px;
+	display: none;
+}
+
+.img-upload {
+	min-width: 160px;
+}
+
+.background-dica {
+	background: #ffecb8;;
+}
+
+.fa-eye,  .fa-eye-slash {
+	font-size: 0.85em;
+    color: #5e66e4;
+    margin-left: 10px;
+	cursor: pointer;
+}
+
+.border-top {
+	border-top: 2px solid #e6e6e6 !important;
+    border-radius: 5px;
+    padding-top: 13px;
 }
