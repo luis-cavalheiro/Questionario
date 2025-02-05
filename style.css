@@ -49,6 +49,7 @@ img {
 	background: #ffdd9d54;
     border-radius: 5px;
     padding: 10px;
+	white-space: break-spaces;
 }
 
 

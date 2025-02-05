@@ -356,10 +356,12 @@
 
         function sinalizarAlternativaRespondida(){
             for(let item of questionarioRecuperado.data[iQuestao].data){
-                if (item.correta)
+                if (item.correta && item.escolhida)
                     // Pinta alternativa correta
                     $(`#alternativa-${item.id} > div`).addClass("bg-correta");
-                else if (item.escolhida)
+                else if (item.correta && !item.escolhida)
+                    $(`#alternativa-${item.id} > div`).addClass("button-selected");
+                else if (item.escolhida && !item.correta)
                     $(`#alternativa-${item.id} > div`).addClass("bg-errada");
             }
 
