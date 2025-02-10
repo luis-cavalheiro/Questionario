@@ -27,8 +27,12 @@
             </h1>
             <!-- Texto da Pergunta -->
             <div class="row" style="margin-top: 2vh;margin-bottom: 2vh;">
-                <div class="col-12 mb-3">
+                <div class="col-12 mb-1">
                     <div id="pergunta" style="font-weight:400">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</div>
+                </div>
+                <!-- img pergunta -->
+                <div clas="col-12 mb-3">
+                    <img id="pergunta-img" src="" >
                 </div>
             </div>
             <!-- Escondido -->
@@ -55,7 +59,7 @@
             <!-- Explicaçao resposta -->
             <div id="row-explicacao" class="row" style="padding-top: 10px;padding-bottom: 10px;border-radius: 5px;">
                 <div class="col-12">
-                    <div class="dica">
+                    <div id="explicaco-pergunta" class="dica">
                         Dica aqui
                     </div>
                 </div>
@@ -151,6 +155,7 @@
         var questionarioCopia = null;
         var questionarioRecuperado = null;
         var iQuestao = -1;
+        var limiteQuestionario = 0;
 
         document.onkeypress = function (e) {
             //e = e || window.event;
@@ -162,6 +167,20 @@
         async function iniciarPaginaDeQuestionario(){
             // Pega o questioanrio da sessão
             questionarioRecuperado = await getQuestionario(recuperarQuestionariosSessao(NOME_QUESTIONARIO));
+
+            limiteQuestionario = sessionStorage.getItem(LIMITE_PERGUNTAS);
+            
+            if (limiteQuestionario && Number(limiteQuestionario) != 0){
+                // remover questoes desnecessárias
+                let num = Number(limiteQuestionario);
+
+                // Se tem itens a serem removidos
+                if (questionarioRecuperado.data.length > limiteQuestionario)
+                    // remove os itens desnecessários
+                    questionarioRecuperado.data.splice(limiteQuestionario);
+            }
+                
+            console.log(limiteQuestionario);
 
             if (questionarioRecuperado != null)
                 iniciarQuestionarioRecuperado();
@@ -224,7 +243,9 @@
 
         function exibirQuestao(pergunta){
             // Titulo da pergunta
-            $("#pergunta").html(pergunta.name);
+            $("#pergunta").html(pergunta.name.replaceAll("\n","<br />"));
+
+            $("#pergunta-img").attr('src', pergunta.img ? pergunta.img : "");
 
             // Dica
             $(".dica").css("display", "none");
@@ -235,24 +256,30 @@
             $("#resposta-escondida").css('display','none');
 
             if (pergunta.escondida)
-                $("#resposta-escondida").html(pergunta.escondida);
+                $("#resposta-escondida").html(pergunta.escondida.replaceAll("\n","<br />"));
             
 
             // Alternativas
             var alternativas = '';
 
             for(let item of pergunta.data){
+                let temDica = "";
+
+                if (item.dica)
+                    temDica = `<div class="dica"> ${item.dica} </div>`;
+
                 alternativas += `
                     <div class="col-12 mb-4">
                         <div id="alternativa-${item.id}" class="btn-lista" onclick="selecionarNovaAlternativa(${item.id})">
                             <div class="button  btn-lista-txt">
                                 <div class="alternativa">
-                                    ${item.name ? item.name + "</br>" : ""}
+                                    ${item.name ? item.name.replaceAll("\n","<br />") + "</br>" : ""}
                                     ${item.img ? '<img src="'+ item.img + '">' : ""}
-                                    
                                 </div>
                             </div>    
+                          
                         </div>
+                          ${temDica}
                     </div>`
             }
 
@@ -278,11 +305,12 @@
         }
 
         function avancarQuestionario(){
-            // Se a alternativa ainda nao foi respondida
+            // Se a alternativa ainda nao foi revelada
             if (!jaRevelada()){
                 console.log(jaRevelada());
                 revelarEscondida();
             }
+            // Se ainda nao foi respondida
             else if(!jaRespondida())
                 responderQuestao();
             else if (iQuestao + 1 < questionarioRecuperado.data.length)
@@ -342,7 +370,7 @@
 
         function responderQuestao(){
             // Verificar se a questão já foi respondida
-            if (jaRespondida()){
+            if (jaRespondida() || getAlternativaSelecionada(iQuestao).length == 0){
                 return;
             }
 
@@ -365,19 +393,6 @@
                     $(`#alternativa-${item.id} > div`).addClass("bg-errada");
             }
 
-            // // Pinta alternativa correta
-            // let iCorreta = questionarioRecuperado.data[iQuestao].data.findIndex( x => x.correta == true);
-            // $(`#alternativa-${questionarioRecuperado.data[iQuestao].data[iCorreta].id} > div`).addClass("bg-correta");
-
-            // // Se alternativa correta != selecionada, pinta a alternativa selecionada
-            // if (!questionarioRecuperado.data[iQuestao].data[iCorreta].escolhida){
-            //     // acha alternativa escolhida
-            //     let iEscolhida = questionarioRecuperado.data[iQuestao].data.findIndex( x => x.escolhida == true);
-
-            //     if (iEscolhida != -1)
-            //         $(`#alternativa-${questionarioRecuperado.data[iQuestao].data[iEscolhida].id} > div`).addClass("bg-errada");
-            // }
-
             mudarBotaoResponder();
         }
 
@@ -385,7 +400,9 @@
             $(".dica").css("display", questionarioRecuperado.data[iQuestao].dica? "block" : "none");
 
             if ( questionarioRecuperado.data[iQuestao].dica)
-                $(".dica").html( questionarioRecuperado.data[iQuestao].dica);
+                $("#explicaco-pergunta").html( questionarioRecuperado.data[iQuestao].dica.replaceAll("\n","<br />"));
+            else
+                $("#explicaco-pergunta").html("");
         }
 
         function finalizarQuestionario(){
@@ -403,16 +420,17 @@
                      // Extrair número de perguntas não respondidas
                     respostas.naoRespondidas++;
                 else {
-                    var acertou = false;
+                    var acertou = acertouQuestao(item.id);
+
+                    
+                    // for(let alternativa of item.data){
+                    //     if (alternativa.escolhida && alternativa.correta){
+                    //         acertou = true;
+                    //         break;
+                    //     }
+                    // }
 
                     // Extrair número de preguntas corretas e erradas
-                    for(let alternativa of item.data){
-                        if (alternativa.escolhida && alternativa.correta){
-                            acertou = true;
-                            break;
-                        }
-                    }
-
                     if (acertou)
                         respostas.corretas++;
                     else
@@ -431,7 +449,7 @@
 
             $("#contagem-corretas").html(`${respostas.corretas}/${respostas.respondidas} Corretas`);
             $("#contagem-erradas").html(`${respostas.incorretas}/${respostas.respondidas} Erradas`);
-            $("#contagem-nao-respondidas").html(`${respostas.naoRespondidas}/${respostas.respondidas} Não Respondidas`);
+            $("#contagem-nao-respondidas").html(`${respostas.naoRespondidas} Não Respondidas`);
             $("#contagem-percentual").html(`${(respostas.corretas/respostas.respondidas*100).toFixed(0)} % de acerto`);            
         };
 
@@ -465,14 +483,19 @@
             // Foi respondido?
             if (questionarioRecuperado.data[iQuestao].respondida){
                 etapa = 2;
-                if (iSelecionada != -1 && questionarioRecuperado.data[iQuestao].data[iSelecionada].correta){
-                    $("#btn-responder").addClass("bg-correta");
-                    correta = true;
-                }
-                else {
-                    $("#btn-responder").addClass("bg-errada");
-                    correta = false;
-                }
+
+                var correta = acertouQuestao(questionarioRecuperado.data[iQuestao].id);
+                $("#btn-responder").addClass(correta ? "bg-correta" : "bg-errada");
+
+
+                // if (acertou){
+                //     $("#btn-responder").addClass("bg-correta");
+                //     correta = true;
+                // }
+                // else {
+                //     $("#btn-responder").addClass("bg-errada");
+                //     correta = false;
+                // }
             }
             else
                 $("#btn-responder").removeClass("bg-errada bg-correta");
@@ -503,6 +526,65 @@
             return questionarioRecuperado.data[iQuestao] ? questionarioRecuperado.data[iQuestao].respondida : false
         }
 
+        //  retorna um array com as alternativa selecionadas pelo usuário
+        function getAlternativaSelecionada(i){
+            var selecionadas = [];
+
+            // pega os ids das alternativas selecionadas
+            if (i != -1)
+                for(let item of questionarioRecuperado.data[i].data){
+                    if (item.escolhida)
+                        selecionadas.push(item.id);
+                }
+
+            selecionadas.sort();
+
+            return selecionadas;
+        }
+
+        // retorna um array com as alternativas consideradas corretas
+        function getAlternativasCorretas(i){
+            var corretas = [];
+
+            // pega os ids das alternativas selecionadas
+            if (i != -1)
+                for(let item of questionarioRecuperado.data[i].data){
+                    if (item.correta)
+                        corretas.push(item.id);
+                }
+
+            corretas.sort();
+
+            return corretas;
+        }
+
+        function compararArray(arrA, arrB){
+            console.log('----------------------');
+            console.log(arrA);
+            console.log(arrB);
+
+            if (!arrA || !arrB || arrA.length != arrB.length)
+                return false;
+
+                console.log(1);
+            for(let i = 0; i < arrA.length; i++){
+                if (arrA[i] != arrB[i])
+                    return false;
+            }
+            console.log(2);
+            return true;
+        }
+
+        function acertouQuestao(id){
+            let i = questionarioRecuperado.data.findIndex(x => x == id);
+
+            console.log("------------acertou?? " + i);
+            let arraySelecionads = getAlternativaSelecionada(i);
+            let arrayCorretas = getAlternativasCorretas(i);
+
+            return compararArray(arraySelecionads, arrayCorretas);
+        }
+
         function irParaHome(){
             window.location.href = "index.html";
         }
@@ -512,17 +594,18 @@
 
             // Adicionar questoes
             for(let item of questionarioRecuperado.data){
-                // Se nao respondeu
-                if (!item.respondida){
-                    // Adicionar
-                    questionarioErradas.data.push(item);
-                }
-                else {
-                    // Se respondeu errado
-                    let iCorreta = item.data.findIndex( x=> x.correta);
+                // // Se nao respondeu
+                // if (!item.respondida){
+                //     // Adicionar
+                //     questionarioErradas.data.push(item);
+                // }
+                // else {
+                    // // Se respondeu errado
+                    // let iCorreta = item.data.findIndex( x=> x.correta);
 
                     // Se respondeu errado OU nao tem resposta
-                    if (iCorreta != -1 && !item.data[iCorreta].escolhida){
+                    //if (iCorreta != -1 && !item.data[iCorreta].escolhida){
+                    if (!acertouQuestao(item.id)){
                         // Limpa a resposta
                         for(let alternativas of item.data)
                             alternativas.escolhida = false;
@@ -531,7 +614,7 @@
                         item.respondida = false;
                         questionarioErradas.data.push(item);
                     }
-                }
+                //}
             }
 
             questionarioRecuperado = questionarioErradas;

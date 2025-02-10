@@ -125,9 +125,28 @@
                         Título Pergunta
                     </h3>
                 </div>
-                <div class="col-12 ">
-                    <div>
-                        <input type="text" id="editar-pergunta-titulo" onchange="mudarTextoPergunta()" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-2">
+                            <!-- img-->
+                            <div class="img-upload">
+                                <label for="input-img-pergunta" class="button">
+                                    <div><i class="fa-solid fa-upload"></i> Imagem</div>
+                                </label>
+                                <input type="file" id="input-img-pergunta" onchange="handleImageUpload(null)" class="button" accept=".png,.jpeg, .jpg" style="display:none;">
+                            </div>
+                        </div>
+                        <!-- texto -->
+                        <div class="col-md-12 col-lg-10">
+                            <textarea type="text" id="editar-pergunta-titulo" class="w-100" style="min-height: 100%;" value=""  onchange="mudarTextoPergunta()">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?
+                            </textarea>
+                            <!--<input type="textarea" id="editar-pergunta-titulo" onchange="mudarTextoPergunta()" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?">-->
+                        </div>
+                    </div>
+                    
+                    <div class="w-100 my-3">
+                        <img id="img-pergunta"/>
                     </div>
                 </div>
             </div>
@@ -283,11 +302,11 @@
                         let item = questionarioRecuperado.data[i];
 
                         htmlPerguntas += `
-                            <div class="col-md-12 col-lg-11 mb-4">
-                                <div class="btn-lista" onclick="editarPergunta(${item.id})">
+                            <div class="col-md-12 col-lg-10 mb-4">
+                                <div id="pergunta-${item.id}" class="btn-lista" onclick="editarPergunta(${item.id})">
                                     <div class="button btn-lista-txt">
                                         <div>
-                                            ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
+                                        [${item.id}] ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
                                         </div>
                                     </div>    
                                 </div>
@@ -295,6 +314,11 @@
                             <div class="col-md-12 col-lg-1 mb-4">
                                 <div class="button button-icon" onclick="copiarPergunta(${item.id})">
                                     <i class="fa-solid fa-copy"></i>
+                                </div>
+                            </div>
+                             <div class="col-md-12 col-lg-1 mb-4">
+                                <div class="button button-icon button-icon-delete" onclick="excluirPergunta(${item.id})">
+                                    <i class="fa-solid fa-trash-can"></i>
                                 </div>
                             </div>
                         `;
@@ -353,7 +377,8 @@
                     perguntaEditada.data.push({
                         name: item.name,
                         id: gerarNovoId(perguntaEditada.data),
-                        correta: item.correta
+                        correta: item.correta,
+                        dica: item.dica
                     });
                 }
 
@@ -404,6 +429,9 @@
             // Preenche campo de texto da pergunta
             $("#editar-pergunta-titulo").val(perguntaEditada.name);
 
+            if (perguntaEditada.img)
+                $("#img-pergunta").attr('src', perguntaEditada.img);
+
             // Carregar card dica
             $("#card").val(perguntaEditada.escondida ? perguntaEditada.escondida : "");
 
@@ -423,6 +451,8 @@
                     img = `<div class="w-100 mb-5">
                             <img id="img-${item.id}" src="${item.img}"/>
                         </div>`;
+
+                
 
                 // Se a alternativa for a correta, sinaliza 
                 htmlAlternativas += `
@@ -449,6 +479,9 @@
                                         <i class="fa-solid fa-trash-can"></i>
                                     </div>
                                 </div>
+                                <div class="col-12 my-1">
+                                    <textarea type="text" id="explicacao-${item.id}" class="w-100 h-100 background-dica" value="" onchange="mudarTextoAlternativa(${item.id})">${item.dica ? item.dica : ""}</textarea>
+                                </div>
                         </div>   
                         ${img}
                     </div>
@@ -459,7 +492,12 @@
 
         // Function to handle image file input and convert it to base64
         function handleImageUpload(id) {
-            const file = $(`#image-input-${id}`)[0].files[0];
+            var file;
+
+            if (id)
+                file = $(`#image-input-${id}`)[0].files[0];
+            else
+                file = $("#input-img-pergunta")[0].files[0];
 
             // Check if a file was selected
             if (file) {
@@ -469,14 +507,17 @@
                 reader.readAsDataURL(file);
                 
                 reader.onload = function() {
-                    let iAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
+                    if (id){
+                        let iAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
 
-                    if (iAlternativa != -1){
-                         // Save the base64 string in the object
-                        perguntaEditada.data[iAlternativa].img =  reader.result;
-                        
-                        mostrarPergunta();
+                        if (iAlternativa != -1)
+                            // Save the base64 string in the object
+                            perguntaEditada.data[iAlternativa].img =  reader.result;
                     }
+                    else 
+                        perguntaEditada.img = reader.result;
+
+                    mostrarPergunta();
                 };
                 
                 reader.onerror = function(error) {
@@ -542,20 +583,25 @@
         }
 
         carregarQuestionario();
+
+        sinalizarPerguntaEditada();
     }
 
         function mudarTextoPergunta(){
-            var novoValor = $("#editar-pergunta-titulo").val();
-            perguntaEditada.name = novoValor;
+            var novoValorTexto = $("#editar-pergunta-titulo").val();
+
+            perguntaEditada.name = novoValorTexto;
         }
 
         function mudarTextoAlternativa(id){
-           var novoValor = $("#alternativa-"+id).val();
+           var novoValorTexto = $("#alternativa-"+id).val();
+           var novoValorExplicacao = $("#explicacao-"+id).val();
 
            var iAlternativa = perguntaEditada.data.findIndex( x => x.id == id);
 
            if (iAlternativa != -1){
-                perguntaEditada.data[iAlternativa].name = novoValor;
+                perguntaEditada.data[iAlternativa].name = novoValorTexto;
+                perguntaEditada.data[iAlternativa].dica = novoValorExplicacao != "" ? novoValorExplicacao : null;
            }
         }
     
@@ -570,15 +616,17 @@
         }
 
         // Exclui uma pergunta do questionario
-        function excluirPergunta(){
-        let iPerguntaDeletar = questionarioRecuperado.data.findIndex( x => x.id == perguntaEditada.id);
+        function excluirPergunta(id){
+            id = id ? id : perguntaEditada.id;
 
-        if (iPerguntaDeletar != -1){
-            questionarioRecuperado.data.splice(iPerguntaDeletar, 1);
+            let iPerguntaDeletar = questionarioRecuperado.data.findIndex( x => x.id == id);
 
-            carregarQuestionario();
+            if (iPerguntaDeletar != -1){
+                questionarioRecuperado.data.splice(iPerguntaDeletar, 1);
+
+                carregarQuestionario();
+            }
         }
-    }
 
         // ----------------------------- Navegar ---------------------------
         function voltarInicial(){
@@ -588,6 +636,8 @@
 
         function abandonarEdicaoPergunta(){
             carregarQuestionario();
+
+            sinalizarPerguntaEditada();
         }
     
         function mostrarCard(mostrar){
@@ -610,6 +660,14 @@
             $("#i-explicacao").addClass(mostrar ? "fa-eye-slash" :  "fa-eye");
 
             $("#col-explicacao").css("display", mostrar? "block" : "none");
+        }
+    
+        function sinalizarPerguntaEditada(){
+            if (perguntaEditada && perguntaEditada.id){
+                // Ir para a pergunta
+                location.href = "#pergunta-"+perguntaEditada.id;   
+                $("#pergunta-"+perguntaEditada.id + " > div").addClass("button-selected");
+            }
         }
     </script>
 </html>

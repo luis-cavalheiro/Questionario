@@ -55,6 +55,21 @@
             <div id="row-questionarios" class="row">
                 
             </div>
+            <!-- Opçoes -->
+             <div id="opcoes" class="row">
+                <div class="col-12 mt-5">
+                    <h2>Opções</h2>
+                </div>
+                <div class="col mt-3">
+                    <div >
+                        <label for="quest-limit">Limitar questionário - <output id="limite-output" class="m-auto" style="margin-left: 10px !important">sem limite</output></label>
+                        <div class="display-flex">
+                            <input id="quest-limit" class="range mt-3 sombra" type="range"  name="quest-limit" min="0" max="200" step="5" value="0" oninput="$('#limite-output').html(this.value == 0 ? 'sem limite' : this.value)"/>
+                            
+                        </div>
+                    </div>
+                </div>
+             </div>
         </div>
     </body>
 
@@ -74,6 +89,14 @@
             }
 
             listarQuestionarios(listaQuestionariosRecuperada);
+
+            // Tentar recuperar limite
+            var limiteQuestionario = sessionStorage.getItem(LIMITE_PERGUNTAS);
+
+            if (limiteQuestionario){
+                $("#quest-limit").val(limiteQuestionario);
+                $("#limite-output").val(limiteQuestionario == 0 ? "sem limite" : limiteQuestionario);
+            }
         }
 
         inicializar();
@@ -102,6 +125,11 @@
         function iniciarQuestionario(i){
             // Salva o questionario na sessão
             salvarItemSessao(NOME_QUESTIONARIO, i);
+
+            var limiteQuantidade = $("#quest-limit").val();
+
+            // Limita quantas perguntas do questionário vai responder
+            sessionStorage.setItem(LIMITE_PERGUNTAS, limiteQuantidade);
 
             // Abre a página de fazer questionario
             window.location.href = "questionario.html";
