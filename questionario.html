@@ -420,6 +420,7 @@
                      // Extrair número de perguntas não respondidas
                     respostas.naoRespondidas++;
                 else {
+                    console.log("Chamando acertou " + item.id);
                     var acertou = acertouQuestao(item.id);
 
                     
@@ -576,9 +577,10 @@
         }
 
         function acertouQuestao(id){
-            let i = questionarioRecuperado.data.findIndex(x => x == id);
+            let i = questionarioRecuperado.data.findIndex(x => x.id == id);
 
             console.log("------------acertou?? " + i);
+            console.log(questionarioRecuperado);
             let arraySelecionads = getAlternativaSelecionada(i);
             let arrayCorretas = getAlternativasCorretas(i);
 
