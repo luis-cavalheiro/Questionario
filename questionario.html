@@ -63,6 +63,10 @@
                         Dica aqui
                     </div>
                 </div>
+                 <!-- img explicação -->
+                 <div clas="col-12 mb-3">
+                    <img id="explicacao-img" src="" >
+                </div>
             </div>
             <!-- botoes inferiores -->
              <div class="row mt-3">
@@ -156,6 +160,7 @@
         var questionarioRecuperado = null;
         var iQuestao = -1;
         var limiteQuestionario = 0;
+        var inverterQuestionario = false;
 
         document.onkeypress = function (e) {
             //e = e || window.event;
@@ -169,15 +174,23 @@
             questionarioRecuperado = await getQuestionario(recuperarQuestionariosSessao(NOME_QUESTIONARIO));
 
             limiteQuestionario = sessionStorage.getItem(LIMITE_PERGUNTAS);
+            inverterQuestionario = sessionStorage.getItem(OPCAO_INVERTER);
             
             if (limiteQuestionario && Number(limiteQuestionario) != 0){
                 // remover questoes desnecessárias
                 let num = Number(limiteQuestionario);
 
                 // Se tem itens a serem removidos
-                if (questionarioRecuperado.data.length > limiteQuestionario)
-                    // remove os itens desnecessários
-                    questionarioRecuperado.data.splice(limiteQuestionario);
+                if (questionarioRecuperado.data.length > limiteQuestionario){
+                    if (inverterQuestionario == 'false'){
+                        // remove os itens desnecessários
+                        questionarioRecuperado.data.splice(limiteQuestionario);
+                    }
+                    else {
+                        questionarioRecuperado.data = questionarioRecuperado.data.splice(limiteQuestionario*-1);
+                        console.log("invertendo");
+                    }
+                }
             }
                 
             console.log(limiteQuestionario);
@@ -265,8 +278,21 @@
             for(let item of pergunta.data){
                 let temDica = "";
 
-                if (item.dica)
-                    temDica = `<div class="dica"> ${item.dica} </div>`;
+                if (item.dica || item.imgExplicacao){
+                    temDica = '<div class="dica">';
+
+                    if (item.dica){
+                        temDica += `<div> ${item.dica} </div>`;
+                    }
+
+                    if (item.imgExplicacao){
+                        temDica += '<img src="'+ item.imgExplicacao + '">';
+                    }
+
+                    temDica += '</div>';
+                }
+                  
+
 
                 alternativas += `
                     <div class="col-12 mb-4">
@@ -397,12 +423,15 @@
         }
 
         function mostrarDica(){
-            $(".dica").css("display", questionarioRecuperado.data[iQuestao].dica? "block" : "none");
+            $(".dica").css("display", questionarioRecuperado.data[iQuestao].dica || questionarioRecuperado.data[iQuestao].imgExplicacao? "block" : "none");
 
             if ( questionarioRecuperado.data[iQuestao].dica)
                 $("#explicaco-pergunta").html( questionarioRecuperado.data[iQuestao].dica.replaceAll("\n","<br />"));
             else
                 $("#explicaco-pergunta").html("");
+
+            console.log(pergunta.imgExplicacao);
+            $("#explicacao-img").attr('src', questionarioRecuperado.data[iQuestao].imgExplicacao ? questionarioRecuperado.data[iQuestao].imgExplicacao : "");
         }
 
         function finalizarQuestionario(){

@@ -69,6 +69,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="display-flex mt-3">
+                        <input type="checkbox" id="inverter" name="inverter" style="max-width: 78px;    max-width: 25px;
+                        height: 25px;
+                        min-height: unset;    margin-right: 13px;" />
+                        <label for="inverter">Inverter ordem</label>
+                    </div>                    
+                </div>
              </div>
         </div>
     </body>
@@ -127,9 +135,11 @@
             salvarItemSessao(NOME_QUESTIONARIO, i);
 
             var limiteQuantidade = $("#quest-limit").val();
+            var inverter = $("#inverter").prop('checked');
 
             // Limita quantas perguntas do questionário vai responder
             sessionStorage.setItem(LIMITE_PERGUNTAS, limiteQuantidade);
+            sessionStorage.setItem(OPCAO_INVERTER, inverter);
 
             // Abre a página de fazer questionario
             window.location.href = "questionario.html";

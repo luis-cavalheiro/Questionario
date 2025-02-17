@@ -133,7 +133,7 @@
                                 <label for="input-img-pergunta" class="button">
                                     <div><i class="fa-solid fa-upload"></i> Imagem</div>
                                 </label>
-                                <input type="file" id="input-img-pergunta" onchange="handleImageUpload(null)" class="button" accept=".png,.jpeg, .jpg" style="display:none;">
+                                <input type="file" id="input-img-pergunta" onchange="handleImageUpload('id', 'input-img-pergunta')" class="button" accept=".png,.jpeg, .jpg" style="display:none;">
                             </div>
                         </div>
                         <!-- texto -->
@@ -146,7 +146,7 @@
                     </div>
                     
                     <div class="w-100 my-3">
-                        <img id="img-pergunta"/>
+                        <img id="img-pergunta"  onclick="removeIMG('id', 'input-img-pergunta')"/>
                     </div>
                 </div>
             </div>
@@ -194,12 +194,26 @@
                         Explicação <i id="i-explicacao" class="fa-solid fa-eye" onclick="mostrarExplicacao()"></i>
                     </h3>
                 </div>
-                <div id="col-explicacao" class="col-12 mb-3"  style="display:none;">
-                    <div class="sombra" style="display: flex;max-width: unset;">
-                        <div class="w-100">
-                            <textarea type="text" id="explicacao" class="w-100 h-100 background-dica" value=""  onchange="mudarExplicacaoPergunta()">
-                            </textarea>
+                <div id="col-explicacao" class="row"  style="display:none;">
+                    <div class="col-md-12 col-lg-2">
+                        <!-- img-->
+                        <div class="img-upload">
+                            <label for="input-img-explicacao" class="button">
+                                <div><i class="fa-solid fa-upload"></i> Imagem</div>
+                            </label>
+                            <input type="file" id="input-img-explicacao" onchange="handleImageUpload('id','input-img-explicacao')" class="button" accept=".png,.jpeg, .jpg" style="display:none;">
                         </div>
+                    </div>
+                    <div class="col-md-12 col-lg-10 mb-3" >
+                        <div class="sombra" style="display: flex;max-width: unset;">
+                            <div class="w-100">
+                                <textarea type="text" id="explicacao" class="w-100 h-100 background-dica" value=""  onchange="mudarExplicacaoPergunta()">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100 my-3">
+                        <img id="img-explicacao" onclick="removeIMG('id', 'input-img-explicacao')"/>
                     </div>
                 </div>
             </div>
@@ -370,7 +384,9 @@
                     dica: perguntaCopiada.dica,
                     data: [],
                     // Gera um novo id para a pergunta, que nao conflite com as outras perguntas
-                    id: gerarNovoId(questionarioRecuperado.data)
+                    id: gerarNovoId(questionarioRecuperado.data),
+                    img: perguntaCopiada.img,
+                    imgExplicacao: perguntaCopiada.imgExplicacao
                 }
 
                 for (let item of perguntaCopiada.data){
@@ -378,7 +394,9 @@
                         name: item.name,
                         id: gerarNovoId(perguntaEditada.data),
                         correta: item.correta,
-                        dica: item.dica
+                        dica: item.dica,
+                        img: item.img,
+                        imgExplicacao: item.imgExplicacao
                     });
                 }
 
@@ -429,8 +447,8 @@
             // Preenche campo de texto da pergunta
             $("#editar-pergunta-titulo").val(perguntaEditada.name);
 
-            if (perguntaEditada.img)
-                $("#img-pergunta").attr('src', perguntaEditada.img);
+            console.log(perguntaEditada.img);
+            $("#img-pergunta").attr('src', perguntaEditada.img ? perguntaEditada.img : '');
 
             // Carregar card dica
             $("#card").val(perguntaEditada.escondida ? perguntaEditada.escondida : "");
@@ -440,16 +458,24 @@
             // Explicação
             $("#explicacao").val(perguntaEditada.dica ? perguntaEditada.dica : "");
 
-            mostrarExplicacao(typeof perguntaEditada.dica == "undefined" ? false : true);
+            mostrarExplicacao(typeof perguntaEditada.dica != "undefined" || typeof perguntaEditada.imgExplicacao != "undefined");
+
+            $("#img-explicacao").attr('src', perguntaEditada.imgExplicacao ? perguntaEditada.imgExplicacao : '');
 
             // Carrega alternativas
             let htmlAlternativas = "";
             for(let item of perguntaEditada.data){
                 var img = "";
+                var imgAlternativaExplicacao = '';
 
                 if (item.img)
                     img = `<div class="w-100 mb-5">
-                            <img id="img-${item.id}" src="${item.img}"/>
+                            <img id="img-${item.id}" src="${item.img}" onclick="removeIMG('alternativa', ${item.id});"/>
+                        </div>`;
+
+                if (item.imgExplicacao)
+                        imgAlternativaExplicacao = `<div class="w-100 mb-5">
+                            <img id="img-explicacao-${item.id}" src="${item.imgExplicacao}" onclick="removeIMG('explicacao', ${item.id});"/>
                         </div>`;
 
                 
@@ -468,7 +494,7 @@
                                         <label for="image-input-${item.id}" class="button">
                                             <div><i class="fa-solid fa-upload"></i> Imagem</div>
                                         </label>
-                                        <input type="file" id="image-input-${item.id}" onchange="handleImageUpload('${item.id}')" class="button"  accept=".png,.jpeg, .jpg" style="display:none;">
+                                        <input type="file" id="image-input-${item.id}" onchange="handleImageUpload('alternativa', '${item.id}')" class="button"  accept=".png,.jpeg, .jpg" style="display:none;">
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-lg-8 my-3">
@@ -479,25 +505,82 @@
                                         <i class="fa-solid fa-trash-can"></i>
                                     </div>
                                 </div>
-                                <div class="col-12 my-1">
+                                ${img}
+                                <div class="col-md-12 col-lg-2 my-3">
+                                    <div class="img-upload">
+                                        <label for="image-input-explicacao-${item.id}" class="button">
+                                            <div><i class="fa-solid fa-upload"></i> Imagem</div>
+                                        </label>
+                                        <input type="file" id="image-input-explicacao-${item.id}" onchange="handleImageUpload('explicacao', '${item.id}')" class="button"  accept=".png,.jpeg, .jpg" style="display:none;">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-10 my-1">
                                     <textarea type="text" id="explicacao-${item.id}" class="w-100 h-100 background-dica" value="" onchange="mudarTextoAlternativa(${item.id})">${item.dica ? item.dica : ""}</textarea>
                                 </div>
                         </div>   
-                        ${img}
+                        
+                        ${imgAlternativaExplicacao}
                     </div>
                 `;
             }
+
             $("#editar-pergunta-alternativas").html(htmlAlternativas);
+
+
+        }
+
+        function removeIMG(categoria, id){
+            switch(categoria){
+                case 'explicacao':
+                    let iExplicacaoAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
+
+                    if (iExplicacaoAlternativa != -1)
+                        // Save the base64 string in the object
+                        perguntaEditada.data[iExplicacaoAlternativa].imgExplicacao =  undefined;
+                    break;
+                case 'alternativa':
+                    let iAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
+
+                    if (iAlternativa != -1)
+                        // Save the base64 string in the object
+                        perguntaEditada.data[iAlternativa].img =  undefined;
+                    break;
+                case 'id':
+                    switch(id){
+                        case 'input-img-pergunta':
+                            perguntaEditada.img = undefined;
+                            break;
+                        case 'input-img-explicacao':
+                            perguntaEditada.imgExplicacao = undefined;
+                            break;
+                    }
+                    break;
+            }
+
+            mostrarPergunta();
         }
 
         // Function to handle image file input and convert it to base64
-        function handleImageUpload(id) {
+        function handleImageUpload(categoria, id) {
+            console.log('salvando em ' + categoria);
             var file;
 
-            if (id)
-                file = $(`#image-input-${id}`)[0].files[0];
-            else
-                file = $("#input-img-pergunta")[0].files[0];
+            switch(categoria){
+                case 'explicacao':
+                    file = $(`#image-input-explicacao-${id}`)[0].files[0];
+                    break;
+                case 'alternativa':
+                    file = $(`#image-input-${id}`)[0].files[0];
+                    break;
+                case 'id':
+                    file = $(`#${id}`)[0].files[0];
+                    break;
+            }
+
+            // if (!isNaN(Number(id)))
+            //     file = $(`#image-input-${id}`)[0].files[0];
+            // else
+            //     file = $(`#${id}`)[0].files[0];
 
             // Check if a file was selected
             if (file) {
@@ -507,15 +590,52 @@
                 reader.readAsDataURL(file);
                 
                 reader.onload = function() {
-                    if (id){
-                        let iAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
+                    switch(categoria){
+                        case 'explicacao':
+                            let iExplicacaoAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
 
-                        if (iAlternativa != -1)
-                            // Save the base64 string in the object
-                            perguntaEditada.data[iAlternativa].img =  reader.result;
+                            if (iExplicacaoAlternativa != -1)
+                                // Save the base64 string in the object
+                                perguntaEditada.data[iExplicacaoAlternativa].imgExplicacao =  reader.result;
+                            break;
+                        case 'alternativa':
+                            let iAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
+
+                            if (iAlternativa != -1)
+                                // Save the base64 string in the object
+                                perguntaEditada.data[iAlternativa].img =  reader.result;
+                            break;
+                        case 'id':
+                            switch(id){
+                                case 'input-img-pergunta':
+                                    perguntaEditada.img = reader.result;
+                                    break;
+                                case 'input-img-explicacao':
+                                    perguntaEditada.imgExplicacao = reader.result;
+                                    break;
+                            }
+                            break;
                     }
-                    else 
-                        perguntaEditada.img = reader.result;
+
+                    // if (!isNaN(Number(id))){
+                    //     let iAlternativa = perguntaEditada.data.findIndex(x => x.id == id);
+
+                    //     if (iAlternativa != -1)
+                    //         // Save the base64 string in the object
+                    //         perguntaEditada.data[iAlternativa].img =  reader.result;
+                    // }
+                    // else {
+                    //     switch(id){
+                    //         case 'input-img-pergunta':
+                    //             perguntaEditada.img = reader.result;
+                    //             break;
+                    //         case 'input-img-explicacao':
+                    //             perguntaEditada.imgExplicacao = reader.result;
+                    //             break;
+                    //     }
+
+                        
+                    // }
 
                     mostrarPergunta();
                 };
@@ -525,6 +645,8 @@
                 };
             }
         }
+
+  
 
         // Adiciona uma alternativa a uma pergunta
         function adicionarAlternativa(){
@@ -659,7 +781,7 @@
 
             $("#i-explicacao").addClass(mostrar ? "fa-eye-slash" :  "fa-eye");
 
-            $("#col-explicacao").css("display", mostrar? "block" : "none");
+            $("#col-explicacao").css("display", mostrar? "" : "none");
         }
     
         function sinalizarPerguntaEditada(){

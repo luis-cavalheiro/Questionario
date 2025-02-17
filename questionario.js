@@ -1,5 +1,6 @@
 const NOME_QUESTIONARIO = "ID_questionario";
 const LIMITE_PERGUNTAS = "LIMITEPERGUNTAS";
+const OPCAO_INVERTER = "INVERTERQUESTIONARIO";
 //const NOME_QUESTIONARIOS_LISTA = "questionarios";
 
 function aloMundo(){
