@@ -57,9 +57,9 @@
                 </div>
             </div>
             <!-- Explicaçao resposta -->
-            <div id="row-explicacao" class="row" style="padding-top: 10px;padding-bottom: 10px;border-radius: 5px;">
+            <div id="row-explicacao" class="row dica" style="padding-top: 10px;padding-bottom: 10px;border-radius: 5px;">
                 <div class="col-12">
-                    <div id="explicaco-pergunta" class="dica">
+                    <div id="explicaco-pergunta">
                         Dica aqui
                     </div>
                 </div>
@@ -311,6 +311,14 @@
 
             $("#row-alternativas").html(alternativas);
 
+            // dicas
+            if ( questionarioRecuperado.data[iQuestao].dica)
+                $("#explicaco-pergunta").html( questionarioRecuperado.data[iQuestao].dica.replaceAll("\n","<br />"));
+            else
+                $("#explicaco-pergunta").html("");
+
+            $("#explicacao-img").attr('src', questionarioRecuperado.data[iQuestao].imgExplicacao ? questionarioRecuperado.data[iQuestao].imgExplicacao : "");
+
             selecionarAlternativa();
 
             // Paginação
@@ -423,15 +431,10 @@
         }
 
         function mostrarDica(){
-            $(".dica").css("display", questionarioRecuperado.data[iQuestao].dica || questionarioRecuperado.data[iQuestao].imgExplicacao? "block" : "none");
+            $(".dica").css("display", "block");
+            //$(".dica").css("display", questionarioRecuperado.data[iQuestao].dica || questionarioRecuperado.data[iQuestao].imgExplicacao? "block" : "none");
 
-            if ( questionarioRecuperado.data[iQuestao].dica)
-                $("#explicaco-pergunta").html( questionarioRecuperado.data[iQuestao].dica.replaceAll("\n","<br />"));
-            else
-                $("#explicaco-pergunta").html("");
-
-            console.log(pergunta.imgExplicacao);
-            $("#explicacao-img").attr('src', questionarioRecuperado.data[iQuestao].imgExplicacao ? questionarioRecuperado.data[iQuestao].imgExplicacao : "");
+            
         }
 
         function finalizarQuestionario(){

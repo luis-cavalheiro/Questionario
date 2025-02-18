@@ -236,9 +236,12 @@
         var iPergunta = -1;
 
         // ----------------------------- Questionario ---------------------------
-        function baixarQuestionario(){
+        async function baixarQuestionario(){
             //console.log(listaQuestionariosRecuperada);
-            baixarQuestionarioDB(questionarioRecuperado);
+            if (questionarioRecuperado){
+                baixarQuestionarioDB(questionarioRecuperado);
+                salvarQuestionario();
+            }
         }
 
         async function salvarQuestionario(){
@@ -246,7 +249,7 @@
                 await atualizarQuestionarioDB(questionarioRecuperado);
             }
 
-            voltarInicial();
+            //voltarInicial();
         }
 
         async function excluirQuestionario(){
@@ -316,11 +319,19 @@
                         let item = questionarioRecuperado.data[i];
 
                         htmlPerguntas += `
-                            <div class="col-md-12 col-lg-10 mb-4">
+                            <div class=" col-md-12 col-lg-1 display-flex">
+                                <div class="m-auto text-center" style="color: #7474c2; font-weight: bold;">
+                                    ${questionarioRecuperado.data.length - i}
+                                </div>
+                                <div class="m-auto text-center" style="color: #c28a74; font-weight: bold;">
+                                    ${i}
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-9 mb-4">
                                 <div id="pergunta-${item.id}" class="btn-lista" onclick="editarPergunta(${item.id})">
                                     <div class="button btn-lista-txt">
                                         <div>
-                                        [${item.id}] ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
+                                        [ID:${item.id}] ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
                                         </div>
                                     </div>    
                                 </div>
