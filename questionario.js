@@ -59,10 +59,10 @@ function gerarNovoId(lista){
 function aleatorizarQuestionario(questionario){
     questionario.data = aleatorizarItens(questionario.data);
 
-    for(var pergunta of questionario.data){
-        // Alternativas
-        pergunta = aleatorizarItens(pergunta.data);
-    }
+    // for(var pergunta of questionario.data){
+    //     // Alternativas
+    //     pergunta = aleatorizarItens(pergunta.data);
+    // }
 }
 
 function aleatorizarItens(array){

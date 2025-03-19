@@ -158,6 +158,10 @@
     <script>
         var questionarioCopia = null;
         var questionarioRecuperado = null;
+
+        var perguntaAtual = null;
+        var perguntasRegistradas = []; // {id: null, selecionadas: [], respondida: false} 
+        
         var iQuestao = -1;
         var limiteQuestionario = 0;
         var inverterQuestionario = false;
@@ -171,7 +175,8 @@
 
         async function iniciarPaginaDeQuestionario(){
             // Pega o questioanrio da sessão
-            questionarioRecuperado = await getQuestionario(recuperarQuestionariosSessao(NOME_QUESTIONARIO));
+            //questionarioRecuperado = await getQuestionario(recuperarQuestionariosSessao(NOME_QUESTIONARIO));
+            questionarioRecuperado = await tryRetornarItemDeUmaTabela(nomeTabelaQuestionario, recuperarQuestionariosSessao(NOME_QUESTIONARIO));
 
             limiteQuestionario = sessionStorage.getItem(LIMITE_PERGUNTAS);
             inverterQuestionario = sessionStorage.getItem(OPCAO_INVERTER);
@@ -193,7 +198,7 @@
                 }
             }
                 
-            console.log(limiteQuestionario);
+            //console.log(limiteQuestionario);
 
             if (questionarioRecuperado != null)
                 iniciarQuestionarioRecuperado();
@@ -254,28 +259,38 @@
             $("#contagem-percentual").html("");
         }
 
-        function exibirQuestao(pergunta){
-            // Titulo da pergunta
-            $("#pergunta").html(pergunta.name.replaceAll("\n","<br />"));
+        async function exibirQuestao(idPergunta){
+            // Recuperar pergunta
+            perguntaAtual = await tryRetornarItemDeUmaTabela(nomeTabelaPerguntas, idPergunta);
 
-            $("#pergunta-img").attr('src', pergunta.img ? pergunta.img : "");
+            // Se não conseguiu recuperar a pergunta
+            if (!perguntaAtual)
+                return;
+
+            // Aleatorizar itens da pergunta
+            perguntaAtual.data = aleatorizarItens(perguntaAtual.data);
+
+            // Titulo da pergunta
+            $("#pergunta").html(perguntaAtual.name.replaceAll("\n","<br />"));
+
+            $("#pergunta-img").attr('src', perguntaAtual.img ? perguntaAtual.img : "");
 
             // Dica
             $(".dica").css("display", "none");
 
             // Resposta Escondida
-            $("#area-resposta-escondida").css('display', pergunta.escondida ? 'block' : 'none');
+            $("#area-resposta-escondida").css('display', perguntaAtual.escondida ? 'block' : 'none');
             $("#card-revelar-resposta").css('display','flex');
             $("#resposta-escondida").css('display','none');
 
-            if (pergunta.escondida)
-                $("#resposta-escondida").html(pergunta.escondida.replaceAll("\n","<br />"));
+            if (perguntaAtual.escondida)
+                $("#resposta-escondida").html(perguntaAtual.escondida.replaceAll("\n","<br />"));
             
 
             // Alternativas
             var alternativas = '';
 
-            for(let item of pergunta.data){
+            for(let item of perguntaAtual.data){
                 let temDica = "";
 
                 if (item.dica || item.imgExplicacao){
@@ -312,12 +327,12 @@
             $("#row-alternativas").html(alternativas);
 
             // dicas
-            if ( questionarioRecuperado.data[iQuestao].dica)
-                $("#explicaco-pergunta").html( questionarioRecuperado.data[iQuestao].dica.replaceAll("\n","<br />"));
+            if ( perguntaAtual.dica)
+                $("#explicaco-pergunta").html( perguntaAtual.dica.replaceAll("\n","<br />"));
             else
                 $("#explicaco-pergunta").html("");
 
-            $("#explicacao-img").attr('src', questionarioRecuperado.data[iQuestao].imgExplicacao ? questionarioRecuperado.data[iQuestao].imgExplicacao : "");
+            $("#explicacao-img").attr('src', perguntaAtual.imgExplicacao ? perguntaAtual.imgExplicacao : "");
 
             selecionarAlternativa();
 
@@ -341,18 +356,25 @@
         function avancarQuestionario(){
             // Se a alternativa ainda nao foi revelada
             if (!jaRevelada()){
+                console.log(`A`);
                 console.log(jaRevelada());
                 revelarEscondida();
             }
             // Se ainda nao foi respondida
-            else if(!jaRespondida())
+            else if(!jaRespondida()){
+                console.log(`B`);
                 responderQuestao();
-            else if (iQuestao + 1 < questionarioRecuperado.data.length)
+                }
+            else if (iQuestao + 1 < questionarioRecuperado.data.length){
+                console.log(`C`);
                 // Se a alternativa já foi respondida e ainda tem questoes a responder
                 mudarQuestao(iQuestao + 1); 
+            }
             else
                 // Se nao tem mais questoes pra responder
                 finalizarQuestionario();
+
+                console.log(`D`);
         }
 
         function selecionarNovaAlternativa(idAlternativa){
@@ -360,16 +382,33 @@
             if (jaRespondida())
                 return;
 
-            var isMultiplaEscolha = questionarioRecuperado.data[iQuestao].multiplaEscolha;
+            var isMultiplaEscolha = perguntaAtual.multiplaEscolha;
+            var registro = retornarRegistroAtual();
 
-            for(let alternativa of questionarioRecuperado.data[iQuestao].data){
+            // Não é multipla escolha
+            if (!isMultiplaEscolha){
+                // Limpa campo
+                registro.selecionadas = [];  
+            }
+
+            
+            for(let alternativa of perguntaAtual.data){
                 //var escolhida = alternativa.id == idAlternativa;
-
-                if (!isMultiplaEscolha)
-                    alternativa.escolhida = alternativa.id == idAlternativa;
+                if (!isMultiplaEscolha && alternativa.id == idAlternativa){
+                    console.log(`ENCONTROU!`);
+                    registro.selecionadas = [alternativa.id];
+                }
                 else if (alternativa.id == idAlternativa){
-                    console.log("Trocando " + idAlternativa);
-                    alternativa.escolhida = !alternativa.escolhida;
+                    let i = registro.selecionadas.findIndex( x => x.idAlternativa);
+
+                    if (i != -1)
+                        // remove
+                        registro.selecionadas.splice(i, 1);
+                    else
+                        // Adiciona
+                        registro.selecionadas.push(alternativa.id);
+
+                    // alternativa.escolhida = !alternativa.escolhida;
                 }
             }
                     
@@ -377,15 +416,40 @@
             selecionarAlternativa();
         }
 
+        // --------------------- registro de respostas ------------------------------------------
+        function buscarIndiceRespondidas(idAlternativa){
+            let i = perguntasRegistradas.findIndex( x => x.id == idAlternativa);
+
+            if (i == -1){
+                perguntasRegistradas.push({
+                    id: idAlternativa, 
+                    selecionadas: [], 
+                    respondida: false
+                })
+
+                i = perguntasRegistradas.length - 1;
+            }
+
+            return i;
+        }
+
+        function retornarRegistroAtual(id){
+            let i = buscarIndiceRespondidas(id ? id : perguntaAtual ? perguntaAtual.id : null);
+            var registro = perguntasRegistradas[i];
+            return registro;
+        }
+
+         // --------------------- X X X ------------------------------------------
         function selecionarAlternativa(){
             if (jaRespondida())
                 sinalizarAlternativaRespondida();
             else {
                 var respondida = false;
+                var registro = retornarRegistroAtual();
 
                 // Registra alternativa selecionada
-                for(let alternativa of questionarioRecuperado.data[iQuestao].data){
-                    if (alternativa.escolhida){
+                for(let alternativa of perguntaAtual.data){
+                    if (registro.selecionadas.includes(alternativa.id)){
                         // Coloca cor na alternativa selecionada
                         $("#alternativa-"+alternativa.id + " > div").addClass('button-selected');
 
@@ -395,21 +459,23 @@
                         // Limpa cores das outras alternativas
                         $("#alternativa-"+alternativa.id + " > div").removeClass('button-selected');
             
-                        // Muda cor do botão responder
-                        mudarBotaoResponder();
+                       
                     }
                 }
             }
+
+             // Muda cor do botão responder
+             mudarBotaoResponder();
         }
 
         function responderQuestao(){
             // Verificar se a questão já foi respondida
-            if (jaRespondida() || getAlternativaSelecionada(iQuestao).length == 0){
+            if (jaRespondida() || retornarRegistroAtual().selecionadas.length == 0){
                 return;
             }
 
             // trava alternativa (já respondida)
-            questionarioRecuperado.data[iQuestao].respondida = true;
+            retornarRegistroAtual().respondida = true;
 
             sinalizarAlternativaRespondida();
 
@@ -417,13 +483,17 @@
         }
 
         function sinalizarAlternativaRespondida(){
-            for(let item of questionarioRecuperado.data[iQuestao].data){
-                if (item.correta && item.escolhida)
+            var registro = retornarRegistroAtual();
+
+            for(let item of perguntaAtual.data){
+                var selecionada = registro.selecionadas.includes(item.id);
+
+                if (item.correta && selecionada)
                     // Pinta alternativa correta
                     $(`#alternativa-${item.id} > div`).addClass("bg-correta");
-                else if (item.correta && !item.escolhida)
+                else if (item.correta && !selecionada)
                     $(`#alternativa-${item.id} > div`).addClass("button-selected");
-                else if (item.escolhida && !item.correta)
+                else if (!item.correta && selecionada)
                     $(`#alternativa-${item.id} > div`).addClass("bg-errada");
             }
 
@@ -503,21 +573,25 @@
             var etapa = 0;
             var correta = false;
 
-            let iSelecionada = questionarioRecuperado.data[iQuestao].data.findIndex( x=> x.escolhida);
+            let iSelecionada = perguntaAtual.data.findIndex( x=> x.escolhida);
 
-            // Uma alternativa foi selecionada?
-            if (iSelecionada == -1)
+            var registro = retornarRegistroAtual();
+
+            // Se nenhuma alternativa foi selecionada
+            if (registro.selecionadas.length == 0)
+                // Desabilita o botão de avançar
                 $("#btn-responder").addClass("btn-disabled");
             else {
+                // Habilita o botão de avançar
                 $("#btn-responder").removeClass("btn-disabled");
                 etapa = 1;
             }
 
             // Foi respondido?
-            if (questionarioRecuperado.data[iQuestao].respondida){
+            if (registro.respondida){
                 etapa = 2;
 
-                var correta = acertouQuestao(questionarioRecuperado.data[iQuestao].id);
+                var correta = acertouQuestao(perguntaAtual.id);
                 $("#btn-responder").addClass(correta ? "bg-correta" : "bg-errada");
 
 
@@ -551,51 +625,41 @@
 
         // Verificar se a dica foi revelada
         function jaRevelada(){
-            return (questionarioRecuperado.data[iQuestao] && questionarioRecuperado.data[iQuestao].escondida) ? ($("#resposta-escondida").css("display") == "block") : true
+            return (perguntaAtual && perguntaAtual.escondida) ? ($("#resposta-escondida").css("display") == "block") : true
         }
 
         // Verificar se a questao já foi repsondida
         function jaRespondida(){
-            return questionarioRecuperado.data[iQuestao] ? questionarioRecuperado.data[iQuestao].respondida : false
-        }
+            // let i = buscarIndiceRespondidas(perguntaAtual.id);
 
-        //  retorna um array com as alternativa selecionadas pelo usuário
-        function getAlternativaSelecionada(i){
-            var selecionadas = [];
+            // return i != -1 && perguntasRegistradas[i].respondida
 
-            // pega os ids das alternativas selecionadas
-            if (i != -1)
-                for(let item of questionarioRecuperado.data[i].data){
-                    if (item.escolhida)
-                        selecionadas.push(item.id);
-                }
-
-            selecionadas.sort();
-
-            return selecionadas;
+            //return questionarioRecuperado.data[iQuestao] ? questionarioRecuperado.data[iQuestao].respondida : false
+            return retornarRegistroAtual().respondida;
         }
 
         // retorna um array com as alternativas consideradas corretas
-        function getAlternativasCorretas(i){
+        async function getAlternativasCorretas(id){
+            // Recupera a pergunta pelo id
+
+            var pergunta = await tryRetornarItemDeUmaTabela(nomeTabelaPerguntas, id);
+
             var corretas = [];
 
-            // pega os ids das alternativas selecionadas
-            if (i != -1)
-                for(let item of questionarioRecuperado.data[i].data){
+            // Para cada alternativa
+            if (pergunta)
+                for(let item of pergunta.data){
+                    // Se for uma alternativa correta
                     if (item.correta)
+                        // Adiciona ao array
                         corretas.push(item.id);
                 }
-
-            corretas.sort();
+            // corretas.sort();
 
             return corretas;
         }
 
         function compararArray(arrA, arrB){
-            console.log('----------------------');
-            console.log(arrA);
-            console.log(arrB);
-
             if (!arrA || !arrB || arrA.length != arrB.length)
                 return false;
 
@@ -608,15 +672,14 @@
             return true;
         }
 
-        function acertouQuestao(id){
-            let i = questionarioRecuperado.data.findIndex(x => x.id == id);
+        async function acertouQuestao(id){
+            // Recupera as respostas registradadas de uma questão
+            var registro = retornarRegistroAtual(id);
 
-            console.log("------------acertou?? " + i);
-            console.log(questionarioRecuperado);
-            let arraySelecionads = getAlternativaSelecionada(i);
-            let arrayCorretas = getAlternativasCorretas(i);
+            // Recupera um array com as alternativas corretas de uma questão
+            let arrayCorretas = getAlternativasCorretas(id);
 
-            return compararArray(arraySelecionads, arrayCorretas);
+            return compararArray(registro.selecionadas, arrayCorretas);
         }
 
         function irParaHome(){
