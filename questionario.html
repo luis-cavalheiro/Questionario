@@ -226,6 +226,9 @@
             // Titulo
             $("#titulo-questionario").html(questionarioRecuperado.name);
 
+            // Limpa registro de respostas
+            perguntasRegistradas = [];
+
             // Aleatoriza
             aleatorizarQuestionario(questionarioRecuperado);
 
@@ -356,25 +359,19 @@
         function avancarQuestionario(){
             // Se a alternativa ainda nao foi revelada
             if (!jaRevelada()){
-                console.log(`A`);
-                console.log(jaRevelada());
                 revelarEscondida();
             }
             // Se ainda nao foi respondida
             else if(!jaRespondida()){
-                console.log(`B`);
                 responderQuestao();
                 }
             else if (iQuestao + 1 < questionarioRecuperado.data.length){
-                console.log(`C`);
                 // Se a alternativa já foi respondida e ainda tem questoes a responder
                 mudarQuestao(iQuestao + 1); 
             }
             else
                 // Se nao tem mais questoes pra responder
                 finalizarQuestionario();
-
-                console.log(`D`);
         }
 
         function selecionarNovaAlternativa(idAlternativa){
@@ -395,7 +392,6 @@
             for(let alternativa of perguntaAtual.data){
                 //var escolhida = alternativa.id == idAlternativa;
                 if (!isMultiplaEscolha && alternativa.id == idAlternativa){
-                    console.log(`ENCONTROU!`);
                     registro.selecionadas = [alternativa.id];
                 }
                 else if (alternativa.id == idAlternativa){
@@ -439,7 +435,6 @@
             return registro;
         }
 
-         // --------------------- X X X ------------------------------------------
         function selecionarAlternativa(){
             if (jaRespondida())
                 sinalizarAlternativaRespondida();
@@ -507,7 +502,7 @@
             
         }
 
-        function finalizarQuestionario(){
+        async function finalizarQuestionario(){
             let respostas = {
                 corretas: 0,
                 incorretas: 0,
@@ -516,22 +511,16 @@
             }
 
             // Verificar se o questionario foi todo respondido
-            for(let item of questionarioRecuperado.data){
-                // A pergunta foi respondida?
-                if (!item.respondida)
+            for(let id of questionarioRecuperado.data){
+                // pega o registro de respostas do usuário
+                var registro = retornarRegistroAtual(id);
+
+                // Se a pergunta não foi respondida
+                if(!registro.respondida)
                      // Extrair número de perguntas não respondidas
                     respostas.naoRespondidas++;
                 else {
-                    console.log("Chamando acertou " + item.id);
-                    var acertou = acertouQuestao(item.id);
-
-                    
-                    // for(let alternativa of item.data){
-                    //     if (alternativa.escolhida && alternativa.correta){
-                    //         acertou = true;
-                    //         break;
-                    //     }
-                    // }
+                    var acertou = await acertouQuestao(id);
 
                     // Extrair número de preguntas corretas e erradas
                     if (acertou)
@@ -547,7 +536,7 @@
             $("#btn-refazer").css("display", respostas.incorretas > 0 ? "block": "none");
            
             // Calcular percentual de acerto do questionário  
-            console.log(respostas);
+            // console.log(respostas);
             mostrarTelaFinal();
 
             $("#contagem-corretas").html(`${respostas.corretas}/${respostas.respondidas} Corretas`);
@@ -569,7 +558,7 @@
             $("#paginacao-questionario").html(`${iQuestao+1}/${questionarioRecuperado.data.length}`);
         }
 
-        function mudarBotaoResponder(){
+        async function mudarBotaoResponder(){
             var etapa = 0;
             var correta = false;
 
@@ -591,7 +580,7 @@
             if (registro.respondida){
                 etapa = 2;
 
-                var correta = acertouQuestao(perguntaAtual.id);
+                var correta = await acertouQuestao(perguntaAtual.id);
                 $("#btn-responder").addClass(correta ? "bg-correta" : "bg-errada");
 
 
@@ -641,9 +630,7 @@
         // retorna um array com as alternativas consideradas corretas
         async function getAlternativasCorretas(id){
             // Recupera a pergunta pelo id
-
             var pergunta = await tryRetornarItemDeUmaTabela(nomeTabelaPerguntas, id);
-
             var corretas = [];
 
             // Para cada alternativa
@@ -659,61 +646,42 @@
             return corretas;
         }
 
-        function compararArray(arrA, arrB){
-            if (!arrA || !arrB || arrA.length != arrB.length)
-                return false;
-
-                console.log(1);
-            for(let i = 0; i < arrA.length; i++){
-                if (arrA[i] != arrB[i])
-                    return false;
-            }
-            console.log(2);
-            return true;
-        }
-
+       
         async function acertouQuestao(id){
             // Recupera as respostas registradadas de uma questão
             var registro = retornarRegistroAtual(id);
 
             // Recupera um array com as alternativas corretas de uma questão
-            let arrayCorretas = getAlternativasCorretas(id);
+            let arrayCorretas = await getAlternativasCorretas(id);
 
-            return compararArray(registro.selecionadas, arrayCorretas);
+            var acertou = compararArray(registro.selecionadas, arrayCorretas);
+
+            console.log(`Verificando se acertou--------------- `, id);
+            console.log(`Selecionadas`, registro.selecionadas);
+            console.log(`Corretas`, arrayCorretas);
+            console.log(`Resposta:`, acertou);
+
+            return acertou
         }
 
         function irParaHome(){
             window.location.href = "index.html";
         }
 
-        function refazerErradas(){
+        async function refazerErradas(){
             var questionarioErradas = {name: questionarioRecuperado.name + " - Correções", data: [], id: questionarioRecuperado.id};
 
             // Adicionar questoes
             for(let item of questionarioRecuperado.data){
-                // // Se nao respondeu
-                // if (!item.respondida){
-                //     // Adicionar
-                //     questionarioErradas.data.push(item);
-                // }
-                // else {
-                    // // Se respondeu errado
-                    // let iCorreta = item.data.findIndex( x=> x.correta);
+                var acertou = await acertouQuestao(item);
 
-                    // Se respondeu errado OU nao tem resposta
-                    //if (iCorreta != -1 && !item.data[iCorreta].escolhida){
-                    if (!acertouQuestao(item.id)){
-                        // Limpa a resposta
-                        for(let alternativas of item.data)
-                            alternativas.escolhida = false;
-
-                        // Adicionar
-                        item.respondida = false;
-                        questionarioErradas.data.push(item);
-                    }
-                //}
+                // Se errou pergunta
+                if (!acertou)
+                    // Adicionar no questionario de erradas
+                    questionarioErradas.data.push(item);
             }
 
+            // Utiliza questionario de erradas
             questionarioRecuperado = questionarioErradas;
 
             iniciarQuestionarioRecuperado();
@@ -723,5 +691,23 @@
             $("#card-revelar-resposta").css('display','none');
             $("#resposta-escondida").css('display','block');
         }
+   
+        // ------------------------------- Auxiliar -------------------------------------------------------------------------------
+        function compararArray(arrA, arrB){
+            // ordena os arrays
+            arrA.sort();
+            arrB.sort();
+
+            if (!arrA || !arrB || arrA.length != arrB.length)
+                return false;
+
+            for(let i = 0; i < arrA.length; i++){
+                if (arrA[i] != arrB[i])
+                    return false;
+            }
+
+            return true;
+        }
+
    </script>
 </html>

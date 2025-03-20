@@ -231,9 +231,12 @@
     </body>
 
     <script>
+        const fileInput = document.getElementById('fileInput');
+        const reader = new FileReader();
         var questionarioRecuperado = null;
         var perguntaEditada = null;
         var iPergunta = -1;
+        var perguntasEditadas = [];
 
         // ----------------------------- Questionario ---------------------------
         async function baixarQuestionario(){
@@ -245,27 +248,26 @@
         }
 
         async function salvarQuestionario(){
-            if (questionarioRecuperado){
-                await atualizarQuestionarioDB(questionarioRecuperado);
+            // Salva todas as perguntas editadas
+            for (let item of perguntasEditadas){
+                await tryAdicionarItemTabela(nomeTabelaPerguntas, item);
             }
 
+            // perguntasEditadas = [];
+
+            // Salva questionário
+            if (questionarioRecuperado){
+                await tryAdicionarItemTabela(nomeTabelaQuestionario, questionarioRecuperado);
+            }
+
+            alert(`Salvo`);
             //voltarInicial();
         }
 
         async function excluirQuestionario(){
-            if (questionarioRecuperado){
-                await deletarQuestionarioDB(questionarioRecuperado);
+            if (questionarioRecuperado && questionarioRecuperado.id){
+                await tryRemoverItemDeUmaTabela(nomeTabelaQuestionario, questionarioRecuperado.id);
             }
-
-            // var listaQuestionariosRecuperada = recuperarQuestionariosSessao(NOME_QUESTIONARIOS_LISTA);
-
-            // var iQuestionarioExcluir = listaQuestionariosRecuperada.questionarios.findIndex(x => x.id == questionarioRecuperado.id);
-            
-            // if(iQuestionarioExcluir != -1){
-            //     listaQuestionariosRecuperada.questionarios.splice(iQuestionarioExcluir,1);
-
-            //     salvarItemSessao(NOME_QUESTIONARIOS_LISTA, listaQuestionariosRecuperada);
-            // }
 
             voltarInicial();
         }
@@ -278,21 +280,20 @@
         }
 
         async function carregarQuestionarioSessao(){
+            var itemSessao = recuperarQuestionariosSessao(NOME_QUESTIONARIO);
+
             // Carrega questionario da sessão
-            questionarioRecuperado = await getQuestionario(recuperarQuestionariosSessao(NOME_QUESTIONARIO));
-
-            //var listaQuestionario = recuperarQuestionariosSessao(NOME_QUESTIONARIOS_LISTA)
-
-            if (!questionarioRecuperado){
+            if (itemSessao)
+                questionarioRecuperado = await tryRetornarItemDeUmaTabela(nomeTabelaQuestionario, itemSessao);
+            else {
                 questionarioRecuperado = {
                     name: "Novo Questionário",
                     data: [
 
-                    ],
-                    //id: gerarNovoId(listaQuestionario.questionarios)
+                    ]
                 }
             }
-             
+
             carregarQuestionario();
         }
 
@@ -304,7 +305,7 @@
         }
 
         // Carregar dados do questionario para editar
-        function carregarQuestionario(){
+        async function carregarQuestionario(){
             carregarTelaEditarQuestionario();
 
             if (questionarioRecuperado){
@@ -314,10 +315,14 @@
                 // Carrega todas as questoes do questionario
                 var htmlPerguntas = "";
 
+                // Se tem perguntas
                 if (questionarioRecuperado.data != null)
+                    // Para cada pergunta encontrada
                     for(let i = questionarioRecuperado.data.length - 1; i >= 0; i--){
-                        let item = questionarioRecuperado.data[i];
+                        // Recupera informação da pergunta
+                        let item = await trazerPergunta(questionarioRecuperado.data[i]);
 
+                        // Mostra dados da pergunta
                         htmlPerguntas += `
                             <div class=" col-md-12 col-lg-1 display-flex">
                                 <div class="m-auto text-center" style="color: #7474c2; font-weight: bold;">
@@ -328,16 +333,16 @@
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-9 mb-4">
-                                <div id="pergunta-${item.id}" class="btn-lista" onclick="editarPergunta(${item.id})">
+                                <div id="pergunta-${item.id}" class="btn-lista" onclick="editarPergunta('${item.id}')">
                                     <div class="button btn-lista-txt">
                                         <div>
-                                        [ID:${item.id}] ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
+                                         ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
                                         </div>
                                     </div>    
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-1 mb-4">
-                                <div class="button button-icon" onclick="copiarPergunta(${item.id})">
+                                <div class="button button-icon" onclick="copiarPergunta('${item.id}')">
                                     <i class="fa-solid fa-copy"></i>
                                 </div>
                             </div>
@@ -348,25 +353,6 @@
                             </div>
                         `;
                     }
-
-                // for(let item of questionarioRecuperado.data){
-                //     htmlPerguntas += `
-                //         <div class="col-md-12 col-lg-11 mb-4">
-                //             <div class="btn-lista" onclick="editarPergunta(${item.id})">
-                //                 <div class="button btn-lista-txt">
-                //                     <div>
-                //                         ${item.name} <i class="fa-solid fa-pen-to-square edit-icon"></i>
-                //                     </div>
-                //                 </div>    
-                //             </div>
-                //         </div>
-                //         <div class="col-md-12 col-lg-1 mb-4">
-                //             <div class="button button-icon" onclick="copiarPergunta(${item.id})">
-                //                 <i class="fa-solid fa-copy"></i>
-                //             </div>
-                //         </div>
-                //     `;
-                // }
 
                 $("#lista-perguntas").html(htmlPerguntas);
             }
@@ -380,14 +366,27 @@
         // ----------------------------- Editar Pergunta ---------------------------
       
         // Carrega uma pergunta do questionario para ediçao ou abre uma nova pergunta vazia
-        function copiarPergunta(id){
-            // Encontrar dados da pergunta
-            iPergunta = questionarioRecuperado.data.findIndex(x => x.id == id);
+        async function trazerPergunta(id){
+            // verifica se a pergunta já foi editada nessa seção
+            let iEditada = perguntasEditadas.findIndex(x => x.id == id);
 
-            if (iPergunta != -1){
+            if (iEditada != -1){
+                return perguntasEditadas[iEditada];
+            }
+            else {
+                // tenta pegar do banco de dados
+                return await tryRetornarItemDeUmaTabela(nomeTabelaPerguntas, id);
+            }
+        }
+        
+        async function copiarPergunta(id){
+            // Carregar pergunta
+            var pergunta = await trazerPergunta(id);
+
+            if (pergunta){
                 carregarTelaEditarPergunta();
 
-                var perguntaCopiada = questionarioRecuperado.data[iPergunta];
+                var perguntaCopiada = pergunta;
 
                 perguntaEditada = {
                     name: perguntaCopiada.name,
@@ -395,7 +394,7 @@
                     dica: perguntaCopiada.dica,
                     data: [],
                     // Gera um novo id para a pergunta, que nao conflite com as outras perguntas
-                    id: gerarNovoId(questionarioRecuperado.data),
+                    id: criarID(),
                     img: perguntaCopiada.img,
                     imgExplicacao: perguntaCopiada.imgExplicacao
                 }
@@ -411,15 +410,18 @@
                     });
                 }
 
-                console.log("copiou pergunta");
-                mostrarPergunta();
+                 mostrarPergunta();
             }
         }
 
-        function editarPergunta(id){
+        async function editarPergunta(id){
             carregarTelaEditarPergunta();
 
-            if (id == null){
+            if (id){
+                 // Carregar Pergunta
+                 perguntaEditada = await trazerPergunta(id);
+            }
+            else if (id == null){
                 perguntaEditada = {
                     name: 'Nova Pergunta',
                     data: [{
@@ -433,32 +435,19 @@
                         id: 1
                     }],
                     // Gera um novo id para a pergunta, que nao conflite com as outras perguntas
-                    id: gerarNovoId(questionarioRecuperado.data)
-                }
-            }
-            else {
-                // Encontrar dados da pergunta
-                iPergunta = questionarioRecuperado.data.findIndex(x => x.id == id);
-
-                if (iPergunta != -1){
-                    perguntaEditada = questionarioRecuperado.data[iPergunta];
+                    id: criarID()
                 }
             }
 
             mostrarPergunta();
         }
 
-        const fileInput = document.getElementById('fileInput');
-        const reader = new FileReader();
 
         // Mostra pergunta a ser editada na tela
         function mostrarPergunta(){
-            console.log(perguntaEditada);
-
             // Preenche campo de texto da pergunta
             $("#editar-pergunta-titulo").val(perguntaEditada.name);
 
-            console.log(perguntaEditada.img);
             $("#img-pergunta").attr('src', perguntaEditada.img ? perguntaEditada.img : '');
 
             // Carregar card dica
@@ -658,7 +647,6 @@
         }
 
   
-
         // Adiciona uma alternativa a uma pergunta
         function adicionarAlternativa(){
             // gerarNovoId(perguntaEditada.data)
@@ -696,28 +684,32 @@
 
         // Salva alteraçoes da pergunta no questionario
         function salvarPergunta(){
-        let iPerguntaEncontrada = questionarioRecuperado.data.findIndex(x => x.id == perguntaEditada.id);            
+            // É multipla escolha?
+            var corretas = 0;
+            for(let alternativa of perguntaEditada.data)
+                corretas += corretas + alternativa.correta ? 1 : 0;
 
-        // É multipla escolha?
-        var corretas = 0;
-        for(let alternativa of perguntaEditada.data)
-            corretas += corretas + alternativa.correta ? 1 : 0;
+            perguntaEditada.multiplaEscolha = (corretas > 0);
+    
+            // Tenta recuperar a pergunta no array de alteradas
+            let iAlterada = perguntasEditadas.findIndex(x => x.id == perguntaEditada.id);
 
-        perguntaEditada.multiplaEscolha = (corretas > 0);
-        
-        // Se a pergunta já existe
-        if (iPerguntaEncontrada != -1){
-            // Replace it
-            questionarioRecuperado.data[iPergunta] = perguntaEditada;
-        }
-        else {
-            // Adiciona a nova pergunta
-            questionarioRecuperado.data.push(perguntaEditada);
-        }
+            // Se essa pergunta já está alterada
+            if (iAlterada != -1){
+                perguntasEditadas[iAlterada] = perguntaEditada;
+            }
+            // Se a pergunta está sendo editada pela primeira vez
+            else {
+                // Adiciona na lista de perguntas editadas
+                perguntasEditadas.push(perguntaEditada);
 
-        carregarQuestionario();
+                // Adiciona o id da pergunta no questionario
+                questionarioRecuperado.data.push(perguntaEditada.id);
+            }
 
-        sinalizarPerguntaEditada();
+            carregarQuestionario();
+
+            sinalizarPerguntaEditada();
     }
 
         function mudarTextoPergunta(){

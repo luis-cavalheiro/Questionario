@@ -88,7 +88,7 @@
 
         reader.onload = (e) => {
             var dadosArquivo = e.target.result;
-            loadArquivoFileReader();
+            loadArquivoFileReader(dadosArquivo);
         };
 
         reader.onerror = (e) => {
@@ -121,33 +121,19 @@
             var listaCarregada = JSON.parse(dadosArquivo);
 
             if (listaCarregada){
-                // Se é uma lista
-                if (Array.isArray(listaCarregada)){
-                    // Atualiza Database para incluir os itens da lista
-                    for(let item of listaCarregada){
-                        // Tira o id para adicionar como um novo item
-                        delete item.id;
-
-                        // Adicionar item no DB
-                        //await tryAdicionarQuestionario(item);
-                        await portarQuestionario(item);
+                // Salva questionarios
+                if(listaCarregada.questionario){
+                    for(let item of listaCarregada.questionario){
+                        await tryAdicionarItemTabela(nomeTabelaQuestionario, item);
                     }
                 }
-                // Se é um único questionário
-                else {
-                    // Atualiza Database para incluir o questionario
 
-                    // Tira o id para adicionar como um novo item
-                    delete listaCarregada.id;
-
-                    // Adicionar item no DB
-                    // await tryAdicionarQuestionario(listaCarregada);
-                    await portarQuestionario(item);
+                // Salva perguntas
+                if(listaCarregada.perguntas){
+                    for(let item of listaCarregada.perguntas){
+                        await tryAdicionarItemTabela(nomeTabelaPerguntas, item);
+                    }
                 }
-
-                // Atualizar lista recuperada
-                // listaQuestionariosRecuperada = listaCarregada;
-                // await inicializar();
             }
 
             return listaCarregada;
@@ -229,8 +215,6 @@
         }
 
         function salvarQuestionarios(){
-            //console.log(listaQuestionariosRecuperada);
-            //baixar(listaQuestionariosRecuperada);
             baixarDB();
         }
     </script>

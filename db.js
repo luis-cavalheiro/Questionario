@@ -12,11 +12,12 @@ request.onerror = function(event){
     console.error(event);
 }
 
-// Cria a estrutura da base de dados (caso ela ainda não exista)
+// Caso não exista a base de dados, cria
 request.onupgradeneeded = function(event){
     upgradeDatabase(event);
 };
 
+// Cria a estrutura da base de dados
 function upgradeDatabase(event){
     //const db = request.result;
     const db = event.target.result;
@@ -37,36 +38,36 @@ function upgradeDatabase(event){
     // storePerguntas.createIndex("banca", ["banca"], { unique: false});
 }
 
-// ------------------------------ Transição -----------------------------------
-async function portarQuestionario(questionario){
-    console.log(`----------questionario`);
-    if (!questionario.pergunta)
-        questionario.perguntas = [];
-    console.log(questionario);
+// // ------------------------------ Transição -----------------------------------
+// async function portarQuestionario(questionario){
+//     console.log(`----------questionario`);
+//     if (!questionario.pergunta)
+//         questionario.perguntas = [];
+//     console.log(questionario);
 
-    console.log(`----------salvando perguntas`);
-    //var idCriado = await tryAdicionarQuestionario(questionario);
-    questionario.listaPerguntas
+//     console.log(`----------salvando perguntas`);
+//     //var idCriado = await tryAdicionarQuestionario(questionario);
+//     questionario.listaPerguntas
 
-    // para cada pergunta dentro do questionario
-    for(var item of questionario.data){
-        // adicionar na tabela de perguntas
-        item.id = undefined;
-        //console.log(item);
-        var idCriado = await tryAdicionarItemTabela(nomeTabelaPerguntas, item);
-        questionario.perguntas.push(idCriado);
-    }
+//     // para cada pergunta dentro do questionario
+//     for(var item of questionario.data){
+//         // adicionar na tabela de perguntas
+//         item.id = undefined;
+//         //console.log(item);
+//         var idCriado = await tryAdicionarItemTabela(nomeTabelaPerguntas, item);
+//         questionario.perguntas.push(idCriado);
+//     }
 
-    console.log(`----------questionario FIM`);
-    console.log(questionario);
+//     console.log(`----------questionario FIM`);
+//     console.log(questionario);
 
-    var novoQuestionario = {
-        name: questionario.name,
-        data: questionario.perguntas
-    }
+//     var novoQuestionario = {
+//         name: questionario.name,
+//         data: questionario.perguntas
+//     }
 
-    await tryAdicionarItemTabela(nomeTabelaQuestionario, novoQuestionario);
-}
+//     await tryAdicionarItemTabela(nomeTabelaQuestionario, novoQuestionario);
+// }
 
 // ------------------------------ Operações DB -----------------------------------
 function adicionarItemTabela(nomeTabela, itemTabela){
@@ -164,7 +165,7 @@ async function tryRetornarItemDeUmaTabela(nomeTabela, id){
      return itemRecuperado;
 }
 
-function removerItemDeUmaTabela(tabela, item){
+function removerItemDeUmaTabela(tabela, id){
     return new Promise((resolve, reject) => {
         // Conecta ao banco
         const request = indexedDB.open(nomeDatabase, 1);
@@ -176,7 +177,7 @@ function removerItemDeUmaTabela(tabela, item){
             // Acessa a tabela
             const objectStore = transaction.objectStore(tabela);
             // Deleta o item
-            const addRequest = objectStore.delete(item.id);
+            const addRequest = objectStore.delete(id);
 
             // Conseguiu deletar o item
             addRequest.onsuccess = function() {
@@ -200,9 +201,9 @@ function removerItemDeUmaTabela(tabela, item){
     });
 }
 
-async function tryRemoverItemDeUmaTabela(tabela, item){
+async function tryRemoverItemDeUmaTabela(tabela, id){
     if (id != null){
-        await removerItemDeUmaTabela(tabela, item)
+        await removerItemDeUmaTabela(tabela, id)
         .then(message => console.log(message))
         .catch(error => console.error(error));
     }
@@ -218,6 +219,33 @@ function criarID(){
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
+
+
+async function baixarDB(){
+    // Recupera tabela de questionario
+    let questionario = await tryRetornarItemDeUmaTabela(nomeTabelaQuestionario);
+
+    // Recupera tabela de perguntas
+    let perguntas = await tryRetornarItemDeUmaTabela(nomeTabelaPerguntas);
+
+    // Salva em um único JSON
+    var save = {
+        questionario: questionario,
+        perguntas: perguntas
+    };
+
+    if (save.questionario.length > 0 || save.perguntas.length > 0){
+        downloadTextFile(JSON.stringify(save), "saveQuestionario.txt");
+    }
+
+    // var listaRecuperada = await recuperarListaQuestionarios();
+
+    // if (listaRecuperada){
+    //     //console.log(listaRecuperada);
+    //     downloadTextFile(JSON.stringify(listaRecuperada), "listaQuestionarios.txt");
+    // }
+}
+
 
 // ------------------------------ OLD -----------------------------------
 // function getItemFromIndexedDB(dbName, storeName, key) {
@@ -419,15 +447,6 @@ const newItem = {name: 'Novo Questionario', data: []};
 // }
 
 
-// async function baixarDB(){
-//     var listaRecuperada = await recuperarListaQuestionarios();
-
-//     if (listaRecuperada){
-//         //console.log(listaRecuperada);
-//         downloadTextFile(JSON.stringify(listaRecuperada), "listaQuestionarios.txt");
-//     }
-// }
-
 // async function baixarQuestionarioDB(questionario){
 //     if (questionario)
 //         downloadTextFile(JSON.stringify(questionario), "questionario.txt");
@@ -448,3 +467,41 @@ const newItem = {name: 'Novo Questionario', data: []};
 
 //     URL.revokeObjectURL(url); // Release the object URL
 // }
+
+
+async function limpar(){
+    var listaExcluir = [];
+
+    // carregar lista de perguntas da base
+    var perguntas = await tryRetornarItemDeUmaTabela(nomeTabelaPerguntas);
+
+    // carregar lista de questionarios da base
+    var questionarios = await tryRetornarItemDeUmaTabela(nomeTabelaQuestionario);
+    console.log(questionarios);
+
+    // para cada pergunta
+    for(let pergunta of perguntas){
+        var perguntaUtilizada = false;
+
+        // para cada questionario
+        for (let questionario of questionarios){
+            // verificar se está no questionario
+            if (questionario.data.findIndex(x => x == pergunta.id) != -1){
+                perguntaUtilizada = true;
+            }
+        }
+            
+        if (!perguntaUtilizada)
+            listaExcluir.push(pergunta.id);
+    }
+        
+    console.log(`----------------lista excluir`);
+    console.log(listaExcluir);
+
+    // excluir items da lista excluir
+    for(let id of listaExcluir){
+        await tryRemoverItemDeUmaTabela(nomeTabelaPerguntas, id);
+    }
+
+    console.log(`fim`);
+}
