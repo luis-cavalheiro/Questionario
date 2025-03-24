@@ -237,6 +237,7 @@
         var perguntaEditada = null;
         var iPergunta = -1;
         var perguntasEditadas = [];
+        var perguntasExcluir = [];
 
         // ----------------------------- Questionario ---------------------------
         async function baixarQuestionario(){
@@ -309,6 +310,15 @@
             carregarTelaEditarQuestionario();
 
             if (questionarioRecuperado){
+                // // tentar juntar os arrays
+                // var result = [];
+
+
+
+                // const result = [...new Set([...questionarioRecuperado.data, ...perguntasEditadas])]
+                // console.log("arrays unidos", result);
+
+
                 // Preenche campo do titulo do questionario
                 $("#titulo-questionario").val(questionarioRecuperado.name);
 
@@ -321,6 +331,7 @@
                     for(let i = questionarioRecuperado.data.length - 1; i >= 0; i--){
                         // Recupera informação da pergunta
                         let item = await trazerPergunta(questionarioRecuperado.data[i]);
+                        //console.log(item);
 
                         // Mostra dados da pergunta
                         htmlPerguntas += `
@@ -347,7 +358,7 @@
                                 </div>
                             </div>
                              <div class="col-md-12 col-lg-1 mb-4">
-                                <div class="button button-icon button-icon-delete" onclick="excluirPergunta(${item.id})">
+                                <div class="button button-icon button-icon-delete" onclick="excluirPergunta('${item.id}')">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </div>
                             </div>
@@ -441,7 +452,6 @@
 
             mostrarPergunta();
         }
-
 
         // Mostra pergunta a ser editada na tela
         function mostrarPergunta(){
@@ -646,7 +656,6 @@
             }
         }
 
-  
         // Adiciona uma alternativa a uma pergunta
         function adicionarAlternativa(){
             // gerarNovoId(perguntaEditada.data)
@@ -703,8 +712,12 @@
                 // Adiciona na lista de perguntas editadas
                 perguntasEditadas.push(perguntaEditada);
 
-                // Adiciona o id da pergunta no questionario
-                questionarioRecuperado.data.push(perguntaEditada.id);
+                // Se não conseguiu achar pergunta no questionario
+                if (questionarioRecuperado.data.findIndex(x => x == perguntaEditada.id) === -1){
+                    console.log("salvando pergunta editada nova");
+                    // Adiciona o id da pergunta no questionario
+                    questionarioRecuperado.data.push(perguntaEditada.id);
+                }
             }
 
             carregarQuestionario();
@@ -741,16 +754,35 @@
         }
 
         // Exclui uma pergunta do questionario
-        function excluirPergunta(id){
+        async function excluirPergunta(id){
             id = id ? id : perguntaEditada.id;
 
-            let iPerguntaDeletar = questionarioRecuperado.data.findIndex( x => x.id == id);
+            // Tenta excluir das perguntas editadas
+            let iExcluir = perguntasEditadas.findIndex(x => x.id == id);
+
+            if (iExcluir != -1){
+                // Excluir das perguntas editadas
+                perguntasEditadas.splice(iExcluir, 1);
+            }
+            else {
+                // Excluir do database
+                await tryRemoverItemDeUmaTabela(nomeTabelaPerguntas, id);
+            } 
+
+            // Tenta excluir do questionario atual
+            console.log(`id deletar`, id);
+            console.log(questionarioRecuperado);
+            let iPerguntaDeletar = questionarioRecuperado.data.findIndex( x => x == id);
+
+            console.log(iPerguntaDeletar);
 
             if (iPerguntaDeletar != -1){
                 questionarioRecuperado.data.splice(iPerguntaDeletar, 1);
-
-                carregarQuestionario();
             }
+
+            
+
+            carregarQuestionario();
         }
 
         // ----------------------------- Navegar ---------------------------

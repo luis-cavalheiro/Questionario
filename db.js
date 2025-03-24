@@ -4,7 +4,7 @@ const nomeTabelaQuestionario = "questionarios";
 const nomeTabelaPerguntas = "perguntas";
 
 // Abrir ou criar o database
-const request = indexedDB.open(nomeDatabase, 1);
+const request = indexedDB.open(nomeDatabase, 2);
 
 // Mensagem de erro ao tentar abrir o database
 request.onerror = function(event){
@@ -203,9 +203,14 @@ function removerItemDeUmaTabela(tabela, id){
 
 async function tryRemoverItemDeUmaTabela(tabela, id){
     if (id != null){
-        await removerItemDeUmaTabela(tabela, id)
-        .then(message => console.log(message))
-        .catch(error => console.error(error));
+        try {
+            await removerItemDeUmaTabela(tabela, id)
+            .then(message => console.log(message))
+            .catch(error => console.error(error));
+        }
+        catch {
+            console.log(`Não conseguiu excluir item da tabela`);
+        }
     }
 }
 

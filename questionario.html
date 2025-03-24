@@ -495,13 +495,17 @@
             mudarBotaoResponder();
         }
 
+        // --------------------- Responder ------------------------------------------
         function mostrarDica(){
-            $(".dica").css("display", "block");
-            //$(".dica").css("display", questionarioRecuperado.data[iQuestao].dica || questionarioRecuperado.data[iQuestao].imgExplicacao? "block" : "none");
-
-            
+            if (temDica())
+                $(".dica").css("display", "block");
         }
 
+        function temDica(){
+            return (perguntaAtual.dica != null && perguntaAtual.dica != ``) || perguntaAtual.imgExplicacao != null
+        }
+
+         // --------------------- Finalizar ------------------------------------------
         async function finalizarQuestionario(){
             let respostas = {
                 corretas: 0,
