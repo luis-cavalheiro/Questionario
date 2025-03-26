@@ -389,16 +389,21 @@
             }
 
             
+            // para cada alternativa
             for(let alternativa of perguntaAtual.data){
-                //var escolhida = alternativa.id == idAlternativa;
+                // Se não for multipla escolha E é a alternativa selecionada
                 if (!isMultiplaEscolha && alternativa.id == idAlternativa){
+                    // Sobrescreve o array com apenas a alternativa selecionada
                     registro.selecionadas = [alternativa.id];
                 }
+                // Se é a alternativa selecionada
                 else if (alternativa.id == idAlternativa){
-                    let i = registro.selecionadas.findIndex( x => x.idAlternativa);
+                    // Procura a alternativa no array de selecionadas
+                    let i = registro.selecionadas.findIndex( x => x == idAlternativa);
 
+                    // Se ela já existe no array de selecionadas
                     if (i != -1)
-                        // remove
+                        // Remove
                         registro.selecionadas.splice(i, 1);
                     else
                         // Adiciona
