@@ -127,17 +127,17 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-md-12 col-lg-2">
+                        <div class="col-md-12 col-lg-1">
                             <!-- img-->
                             <div class="img-upload">
                                 <label for="input-img-pergunta" class="button">
-                                    <div><i class="fa-solid fa-upload"></i> Imagem</div>
+                                    <div><i class="fa-solid fa-image"></i></div>
                                 </label>
                                 <input type="file" id="input-img-pergunta" onchange="handleImageUpload('id', 'input-img-pergunta')" class="button" accept=".png,.jpeg, .jpg" style="display:none;">
                             </div>
                         </div>
                         <!-- texto -->
-                        <div class="col-md-12 col-lg-10">
+                        <div class="col-md-12 col-lg-11">
                             <textarea type="text" id="editar-pergunta-titulo" class="w-100" style="min-height: 100%;" value=""  onchange="mudarTextoPergunta()">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?
                             </textarea>
@@ -199,7 +199,7 @@
                         <!-- img-->
                         <div class="img-upload">
                             <label for="input-img-explicacao" class="button">
-                                <div><i class="fa-solid fa-upload"></i> Imagem</div>
+                                <div><i class="fa-solid fa-image"></i> Imagem</div>
                             </label>
                             <input type="file" id="input-img-explicacao" onchange="handleImageUpload('id','input-img-explicacao')" class="button" accept=".png,.jpeg, .jpg" style="display:none;">
                         </div>
@@ -477,6 +477,8 @@
             for(let item of perguntaEditada.data){
                 var img = "";
                 var imgAlternativaExplicacao = '';
+                var temDica = item.dica || item.imgExplicacao;
+                var displayDica = `display: ${temDica ? "block" : "none" }`;
 
                 if (item.img)
                     img = `<div class="w-100 mb-5">
@@ -488,6 +490,7 @@
                             <img id="img-explicacao-${item.id}" src="${item.imgExplicacao}" onclick="removeIMG('explicacao', ${item.id});"/>
                         </div>`;
 
+                        console.log(item);
                 
 
                 // Se a alternativa for a correta, sinaliza 
@@ -499,15 +502,15 @@
                                         <i class="fa-solid fa-check" style="color: #d5d4d4"></i>
                                     </div>  
                                 </div>
-                                <div class="col-md-12 col-lg-2 my-3">
+                                <div class="col-md-12 col-lg-1 my-3">
                                     <div class="img-upload">
                                         <label for="image-input-${item.id}" class="button">
-                                            <div><i class="fa-solid fa-upload"></i> Imagem</div>
+                                            <div><i class="fa-solid fa-image"></i></div>
                                         </label>
                                         <input type="file" id="image-input-${item.id}" onchange="handleImageUpload('alternativa', '${item.id}')" class="button"  accept=".png,.jpeg, .jpg" style="display:none;">
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-lg-8 my-3">
+                                <div class="col-md-12 col-lg-8  my-3">
                                     <textarea type="text" id="alternativa-${item.id}" class="alternativa w-100 h-100"  onchange="mudarTextoAlternativa(${item.id})">${item.name}</textarea>
                                 </div>
                                 <div class="col-md-12 col-lg-1 my-3">
@@ -515,18 +518,24 @@
                                         <i class="fa-solid fa-trash-can"></i>
                                     </div>
                                 </div>
+                                <div class="col-md-12 col-lg-1 my-3">
+                                    <div class="button button-icon" onclick="expandirAlternativa(${item.id})">
+                                        <i class="fa-solid fa-angles-down"></i>
+                                    </div>
+                                </div>
                                 ${img}
-                                <div class="col-md-12 col-lg-2 my-3">
+                                <div id="coluna-explicacao-${item.id}-btn" class="col-md-12 col-lg-1 my-3" style="${displayDica}">
                                     <div class="img-upload">
                                         <label for="image-input-explicacao-${item.id}" class="button">
-                                            <div><i class="fa-solid fa-upload"></i> Imagem</div>
+                                            <div><i class="fa-solid fa-image"></i></div>
                                         </label>
                                         <input type="file" id="image-input-explicacao-${item.id}" onchange="handleImageUpload('explicacao', '${item.id}')" class="button"  accept=".png,.jpeg, .jpg" style="display:none;">
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-lg-10 my-1">
+                                <div id="coluna-explicacao-${item.id}" class="col-md-12 col-lg-11 my-1" style="${displayDica}">
                                     <textarea type="text" id="explicacao-${item.id}" class="w-100 h-100 background-dica" value="" onchange="mudarTextoAlternativa(${item.id})">${item.dica ? item.dica : ""}</textarea>
                                 </div>
+                                
                         </div>   
                         
                         ${imgAlternativaExplicacao}
@@ -783,6 +792,14 @@
             
 
             carregarQuestionario();
+        }
+
+        function expandirAlternativa(id){
+            var newDisplay =  $(`#coluna-explicacao-${id}-btn`).css(`display`) == `none` ? `block` : `none`; 
+            console.log(id);
+
+            $(`#coluna-explicacao-${id}-btn`).css(`display`,newDisplay);
+            $(`#coluna-explicacao-${id}`).css(`display`,newDisplay);
         }
 
         // ----------------------------- Navegar ---------------------------

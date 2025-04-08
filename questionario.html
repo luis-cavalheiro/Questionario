@@ -507,7 +507,17 @@
         }
 
         function temDica(){
-            return (perguntaAtual.dica != null && perguntaAtual.dica != ``) || perguntaAtual.imgExplicacao != null
+            var alternativaComDica = false;
+
+            // Se alguma alternativa tem uma dica
+            for(let item of perguntaAtual.data){
+                if (item.dica){
+                    alternativaComDica = true;
+                    break;
+                }
+            }
+
+            return (perguntaAtual.dica != null && perguntaAtual.dica != ``) || perguntaAtual.imgExplicacao != null || alternativaComDica
         }
 
          // --------------------- Finalizar ------------------------------------------
