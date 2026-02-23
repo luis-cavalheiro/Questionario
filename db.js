@@ -4,7 +4,8 @@ const nomeTabelaQuestionario = "questionarios";
 const nomeTabelaPerguntas = "perguntas";
 
 // Abrir ou criar o database
-const request = indexedDB.open(nomeDatabase, 2);
+const versaoDB = 1;
+const request = indexedDB.open(nomeDatabase, versaoDB);
 
 // Mensagem de erro ao tentar abrir o database
 request.onerror = function(event){
@@ -72,7 +73,7 @@ function upgradeDatabase(event){
 // ------------------------------ Operações DB -----------------------------------
 function adicionarItemTabela(nomeTabela, itemTabela){
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open(nomeDatabase);
+        const request = indexedDB.open(nomeDatabase, versaoDB);
 
         request.onsuccess = function(event) {
             const db = event.target.result;
@@ -124,7 +125,7 @@ async function tryAdicionarItemTabela(nomeTabela, itemTabela){
 
 function retornarItemDeUmaTabela(nomeTabela, id){
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open(nomeDatabase);
+        const request = indexedDB.open(nomeDatabase, versaoDB);
 
         request.onsuccess = function(event) {
             const db = event.target.result;
@@ -168,8 +169,7 @@ async function tryRetornarItemDeUmaTabela(nomeTabela, id){
 function removerItemDeUmaTabela(tabela, id){
     return new Promise((resolve, reject) => {
         // Conecta ao banco
-        const request = indexedDB.open(nomeDatabase, 1);
-
+        const request = indexedDB.open(nomeDatabase, versaoDB);
         // Conseguiu se conectar ao database
         request.onsuccess = function(event) {
             const db = event.target.result;
@@ -452,10 +452,10 @@ const newItem = {name: 'Novo Questionario', data: []};
 // }
 
 
-// async function baixarQuestionarioDB(questionario){
-//     if (questionario)
-//         downloadTextFile(JSON.stringify(questionario), "questionario.txt");
-// }
+async function baixarQuestionarioDB(questionario){
+    if (questionario)
+        downloadTextFile(JSON.stringify(questionario), "questionario.txt");
+}
 
 // function downloadTextFile(text, filename) {
 //     const blob = new Blob([text], { type: 'text/plain' }); // Create a Blob
