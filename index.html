@@ -26,28 +26,28 @@
             <!-- botoes -->
             <div class="row">
                 <!-- Criar -->
-                <div class="col-md-12 col-lg-4 mb-5">
+                <div class="col-md-4 col-lg-4 mb-5">
                     <div class="button" onclick="editarQuestionario(null)">
-                        <div><i class="fa-solid fa-plus"></i> Criar</div>
+                        <div><i class="fa-solid fa-plus"></i></div>
                     </div>
                 </div>
                 <!-- Carregar-->
-                <div class="col-md-12 col-lg-4 mb-5">
+                <div class="col-md-4 col-lg-4 mb-5">
                     <label for="fileInput" class="button">
-                        <div><i class="fa-solid fa-upload"></i> Carregar</div>
+                        <div><i class="fa-solid fa-upload"></i> </div>
                     </label>
                     <input type="file" id="fileInput" class="button"  accept=".txt,.json" style="display:none;">
                 </div>
                 <!-- Baixar -->
-                <div class="col-md-12 col-lg-4 mb-5">
+                <div class="col-md-4 col-lg-4 mb-5">
                     <div class="button" onclick="salvarQuestionarios()">
-                           <div><i class="fa-solid fa-download"></i> Baixar</div>
+                           <div><i class="fa-solid fa-file-arrow-down"></i> </div>
                     </div>
                 </div>
             </div>   
             <!-- Titulo -->     
             <div class="row">
-                <div class="col-12 mt-5">
+                <div class="col-12 mt-5 mb-3">
                     <h2>Questionários</h2>
                 </div>
             </div>
@@ -56,25 +56,57 @@
                 
             </div>
             <!-- Opçoes -->
-             <div id="opcoes" class="row">
+            <div class="row">
                 <div class="col-12 mt-5">
                     <h2>Opções</h2>
                 </div>
-                <div class="col mt-3">
-                    <div >
-                        <label for="quest-limit">Limitar questionário - <output id="limite-output" class="m-auto" style="margin-left: 10px !important">sem limite</output></label>
-                        <div class="display-flex">
-                            <input id="quest-limit" class="range mt-3 sombra" type="range"  name="quest-limit" min="0" max="350" step="5" value="0" oninput="$('#limite-output').html(this.value == 0 ? 'sem limite' : this.value)"/>
-                            
+            </div>
+             <div id="opcoes" class="row w-100 mx-auto" style="border: 1px solid gainsboro;border-radius:5px;padding-bottom:20px;">
+                
+                <!----------- Range --------------->
+                <script>
+                    function adicionarStep(adicionar){
+                        // Target the range input by its ID
+                        const rangeInput = document.getElementById('quest-limit');
+
+                        // Set the new value programmatically
+                        if (adicionar)
+                            rangeInput.value =  Number(rangeInput.value) + Number(rangeInput.step); 
+                        else
+                            rangeInput.value =  Number(rangeInput.value) - Number(rangeInput.step); 
+
+                        rangeInput.dispatchEvent(new Event('input'));
+                    }
+
+
+                </script>
+                <div class="col-md-12 col-lg-6 mt-3">
+                    <div>
+                        <label for="quest-limit" class="mb-3">Limitar questionário</label>
+                        <div class="row w-100 mx-auto">
+                            <div class="col-1 display-flex mr-2" onclick="adicionarStep(false)" style="cursor:pointer;"><i class="fa-solid fa-caret-left m-auto" style="font-size:32px"></i></div>
+                            <div class="col-8 display-flex">
+                                <input id="quest-limit" class="range" type="range"  name="quest-limit" min="0" max="350" step="5" value="0" oninput="$('#limite-output').html(this.value == 0 ? 'sem limite' : this.value)"/>      
+                            </div>
+                            <div class="col-1 display-flex ml-2" onclick="adicionarStep(true)" style="cursor:pointer;"><i class="fa-solid fa-caret-right m-auto" style="font-size:32px"></i></div>
+                            <div class="col-2 display-flex"><output id="limite-output" class="m-auto" style="padding-bottom: 2px">sem limite</output></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="display-flex mt-3">
-                        <input type="checkbox" id="inverter" name="inverter" style="max-width: 78px;    max-width: 25px;
-                        height: 25px;
-                        min-height: unset;    margin-right: 13px;" />
-                        <label for="inverter">Inverter ordem</label>
+                    <div class="display-flex mt-5" style="
+                        border: 1px solid gainsboro;
+                        border-radius: 5px;
+                        padding: 12px;
+                        min-width: fit-content;
+                        ">
+                        <input type="checkbox" id="inverter" name="inverter" style="
+                            max-width: 25px;
+                            height: 25px;
+                            min-height: unset;    
+                            margin-right: 13px;
+                        " />
+                        <label for="inverter">Começar do fim</label>
                     </div>                    
                 </div>
              </div>

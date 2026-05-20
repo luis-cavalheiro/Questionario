@@ -40,7 +40,7 @@
                 <div class="col-12 mb-3">
                     <div id="card-revelar-resposta" class="card-resposta sombra" onclick="revelarEscondida()">
                         <div>
-                            猫
+                            <i class="fa-solid fa-puzzle-piece"></i>
                         </div>
                     </div>
                     <div id="resposta-escondida" style="display:none;">
@@ -71,26 +71,26 @@
             <!-- botoes inferiores -->
              <div class="row mt-3">
                  <!-- Botoes Voltar Pergunta -->
-                <div class="col-sm-6 my-2">
+                <div class="col-md-6 col-lg-3 my-2">
                     <div class="button button-icon" onclick="mudarQuestao(iQuestao-1);">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
                 </div>
                 <!-- Botoes Avançar Pergunta Col-->
-                <div class="col-sm-6 my-2">
+                <div class="col-md-6 col-lg-3 my-2">
                     <div class="button button-icon" onclick="mudarQuestao(iQuestao+1);">
                         <i class="fa-solid fa-chevron-right"></i>
                     </div>
                 </div>
                 <!-- Btn Sair -->
-                <div class="col-sm-12 col-md-6 my-2">
+                <div class="col-md-12 col-lg-3 my-2">
                     <div class="button m-auto" onclick="finalizarQuestionario()">
-                        <div><i class="fa-solid fa-person-walking-arrow-right"></i> Terminar</div>
+                        <div><i class="fa-solid fa-person-walking-arrow-right"></i></div>
                     </div>
                 </div>
                 
                 <!-- Btn Responder Pergunta -->
-                <div class="col-sm-12 col-md-6 my-2">
+                <div class="col-md-12 col-lg-3 my-2">
                     <div id="btn-responder" class="button m-auto" onclick="avancarQuestionario()">
                         <div ><i class="fa-solid fa-check"></i> Responder</div>
                     </div>
@@ -218,15 +218,6 @@
 
         function refazerQuestionario(){
             iniciarPaginaDeQuestionario();
-            // for(let item of questionarioRecuperado.data){
-            //     item.respondida = false;
-
-            //     for (let alternativa of item.data){
-            //         alternativa.escolhida = false;
-            //     }
-            // }
-
-            // iniciarQuestionarioRecuperado();
         }
 
         // Inicia um novo questionario
@@ -480,12 +471,15 @@
         }
 
         function responderQuestao(){
-            // Verificar se a questão já foi respondida
+            // Se ainda não foi respondida
             if (jaRespondida() || retornarRegistroAtual().selecionadas.length == 0){
+                // Seleciona a primeira alternativa automaticamente
+                selecionarNovaAlternativa(perguntaAtual.data[0].id);
+
                 return;
             }
 
-            // trava alternativa (já respondida)
+            // Se já foi respondida, trava alternativa (já respondida)
             retornarRegistroAtual().respondida = true;
 
             sinalizarAlternativaRespondida();
@@ -612,16 +606,6 @@
 
                 var correta = await acertouQuestao(perguntaAtual.id);
                 $("#btn-responder").addClass(correta ? "bg-correta" : "bg-errada");
-
-
-                // if (acertou){
-                //     $("#btn-responder").addClass("bg-correta");
-                //     correta = true;
-                // }
-                // else {
-                //     $("#btn-responder").addClass("bg-errada");
-                //     correta = false;
-                // }
             }
             else
                 $("#btn-responder").removeClass("bg-errada bg-correta");
@@ -629,7 +613,7 @@
                 switch(etapa){
                     case 0:
                         $("#row-alternativas").css({background: "unset"});
-                        $("#btn-responder > div").html("<i class='fa-regular fa-hand-pointer'></i> Selecione"); 
+                        $("#btn-responder > div").html("<i class='fa-regular fa-hand-pointer'></i> "); 
                         break;
                     case 1:
                         $("#row-alternativas").css({background: "unset"});
@@ -637,7 +621,7 @@
                         break;
                     case 2:
                         $("#row-alternativas").css({background: `${correta ? '#b7f9d1' : '#ffdcdc'}`}); 
-                        $("#btn-responder > div").html("<i class='fa-solid fa-check-double'></i> Avançar"); 
+                        $("#btn-responder > div").html("<i class='fa-solid fa-check-double'></i> "); 
                         break;
                 }
         }
@@ -649,11 +633,6 @@
 
         // Verificar se a questao já foi repsondida
         function jaRespondida(){
-            // let i = buscarIndiceRespondidas(perguntaAtual.id);
-
-            // return i != -1 && perguntasRegistradas[i].respondida
-
-            //return questionarioRecuperado.data[iQuestao] ? questionarioRecuperado.data[iQuestao].respondida : false
             return retornarRegistroAtual().respondida;
         }
 
@@ -671,7 +650,6 @@
                         // Adiciona ao array
                         corretas.push(item.id);
                 }
-            // corretas.sort();
 
             return corretas;
         }

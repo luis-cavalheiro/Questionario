@@ -237,7 +237,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6e5b890f-e91c-4a14-99ec-d3777a7fb0f2",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? い",
@@ -258,7 +258,7 @@ const questonarioTeste = {
           }
         ],
         "id": "87609586-4d8e-45b4-aa0b-e4daff7f8dfc",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? う",
@@ -279,7 +279,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a9c1e6aa-2582-49c5-bc19-8dc09e8bf518",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? え",
@@ -300,7 +300,7 @@ const questonarioTeste = {
           }
         ],
         "id": "df9ea804-5a36-4180-9ed1-dec465ebcf82",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? お",
@@ -321,7 +321,7 @@ const questonarioTeste = {
           }
         ],
         "id": "48f03205-087a-4916-b3ed-a0d44c8dc5b2",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? か",
@@ -342,7 +342,7 @@ const questonarioTeste = {
           }
         ],
         "id": "adc26120-9a18-466b-ad62-20e2aaa27a32",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? き",
@@ -363,7 +363,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a3921d77-c3bd-4bd6-8dc5-4ae8be5fe26d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? く",
@@ -384,7 +384,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6e7718ce-b209-4ad4-81a6-a7fe7a4b1d23",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? け",
@@ -405,7 +405,7 @@ const questonarioTeste = {
           }
         ],
         "id": "485ef074-bb06-4df4-83f1-942a1c0d6f01",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? こ",
@@ -426,7 +426,7 @@ const questonarioTeste = {
           }
         ],
         "id": "ef6a1069-53aa-4ab2-81e5-50fa2e907b04",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? さ",
@@ -447,7 +447,7 @@ const questonarioTeste = {
           }
         ],
         "id": "61a55beb-fe67-4d5d-b5a6-6e3f4c6627da",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? し",
@@ -468,7 +468,7 @@ const questonarioTeste = {
           }
         ],
         "id": "c965a0bb-d182-4613-8255-3f71962358ce",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? す",
@@ -489,7 +489,7 @@ const questonarioTeste = {
           }
         ],
         "id": "acc92678-9cdc-4c3c-a474-36c8fd46e6a0",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? せ",
@@ -510,7 +510,7 @@ const questonarioTeste = {
           }
         ],
         "id": "5c372892-58cb-4dc0-a0cd-ee30fe4f08bc",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? そ",
@@ -531,7 +531,7 @@ const questonarioTeste = {
           }
         ],
         "id": "f94cf950-ffe0-4950-94e2-f4424b2aebb5",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? た",
@@ -552,7 +552,7 @@ const questonarioTeste = {
           }
         ],
         "id": "27164ed9-0ed9-4647-bf82-bad4ceff23b9",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ち",
@@ -573,7 +573,7 @@ const questonarioTeste = {
           }
         ],
         "id": "533f4350-9f84-4e8d-a2bb-3c4ed60f1181",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? つ",
@@ -594,7 +594,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b78fa614-e6f2-4110-8fae-ebf8e7dfa232",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? て",
@@ -615,7 +615,7 @@ const questonarioTeste = {
           }
         ],
         "id": "2175ce6c-7f8e-49a5-bef9-5a982bccbca2",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? と",
@@ -636,7 +636,7 @@ const questonarioTeste = {
           }
         ],
         "id": "143e9016-92c7-4d1f-9e05-ae171046bc65",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? な",
@@ -657,7 +657,7 @@ const questonarioTeste = {
           }
         ],
         "id": "3efc8163-8426-47d7-b6a3-d36c25360a1f",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? に",
@@ -678,7 +678,7 @@ const questonarioTeste = {
           }
         ],
         "id": "40a3fbc0-110e-4522-a6ed-5b97557bd05f",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぬ",
@@ -699,7 +699,7 @@ const questonarioTeste = {
           }
         ],
         "id": "76128a78-4b97-4b78-a5ee-384d311d222a",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ね",
@@ -720,10 +720,10 @@ const questonarioTeste = {
           }
         ],
         "id": "dc69c4a3-b084-49cc-a8ec-a7abf08f6fb5",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? no",
+        "name": "Que símbolo é esse? の",
         "escondida": "É o símbolo \"no\" do Hiragana",
         "dica": "no",
         "data": [
@@ -741,7 +741,7 @@ const questonarioTeste = {
           }
         ],
         "id": "d83bfe92-ddf2-438d-9555-2300c4a46d77",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? は",
@@ -762,7 +762,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6632e7fb-6323-4e54-90dd-571787bf0349",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ひ",
@@ -783,7 +783,7 @@ const questonarioTeste = {
           }
         ],
         "id": "12ada249-31fc-4d52-ac50-be2ee31b13a9",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ふ",
@@ -804,7 +804,7 @@ const questonarioTeste = {
           }
         ],
         "id": "deced0aa-a467-41e2-982f-fbaf0f9de42e",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? へ",
@@ -825,7 +825,7 @@ const questonarioTeste = {
           }
         ],
         "id": "df074ca0-ec34-4ac2-9367-4b0aadd343a7",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ほ",
@@ -846,7 +846,7 @@ const questonarioTeste = {
           }
         ],
         "id": "edbc3547-fda7-4670-a450-201ec06fe9a2",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ま",
@@ -867,7 +867,7 @@ const questonarioTeste = {
           }
         ],
         "id": "4073491a-07d5-4bc4-b4f7-0390a6aa0dce",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? み",
@@ -888,7 +888,7 @@ const questonarioTeste = {
           }
         ],
         "id": "d0abe8ad-3af7-4f36-8736-ad320dbdb2b4",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? む",
@@ -909,10 +909,10 @@ const questonarioTeste = {
           }
         ],
         "id": "427c54b9-0dda-45de-b2b7-e2b86f678abc",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? me",
+        "name": "Que símbolo é esse? め",
         "escondida": "É o símbolo \"me\" do Hiragana",
         "dica": "me",
         "data": [
@@ -930,10 +930,10 @@ const questonarioTeste = {
           }
         ],
         "id": "80292e77-3d05-4383-8019-b6d28821c599",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? mo",
+        "name": "Que símbolo é esse? も",
         "escondida": "É o símbolo \"mo\" do Hiragana",
         "dica": "mo",
         "data": [
@@ -951,7 +951,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b4479129-598b-4c99-827f-f294e76405e9",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? や",
@@ -972,7 +972,7 @@ const questonarioTeste = {
           }
         ],
         "id": "456a96d3-abff-46f3-b117-a7cb41340e30",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ゆ",
@@ -993,7 +993,7 @@ const questonarioTeste = {
           }
         ],
         "id": "29dc6261-0fcc-4fd4-ae96-e0354efa3add",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? よ",
@@ -1014,7 +1014,7 @@ const questonarioTeste = {
           }
         ],
         "id": "30456bcb-b553-4b8c-9957-189618db7b0b",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ら",
@@ -1035,7 +1035,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7a82218e-9318-40d3-9725-0ed38e1ec6db",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? り",
@@ -1056,7 +1056,7 @@ const questonarioTeste = {
           }
         ],
         "id": "48bab3de-7128-4399-90cd-7e99a246c2d5",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? る",
@@ -1077,10 +1077,10 @@ const questonarioTeste = {
           }
         ],
         "id": "5361a986-95b7-4621-ae2e-fffcdb826055",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? re",
+        "name": "Que símbolo é esse? れ",
         "escondida": "É o símbolo \"re\" do Hiragana",
         "dica": "re",
         "data": [
@@ -1098,10 +1098,10 @@ const questonarioTeste = {
           }
         ],
         "id": "0dc30053-1a87-418e-b529-b4920fe6c593",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? ro",
+        "name": "Que símbolo é esse? ろ",
         "escondida": "É o símbolo \"ro\" do Hiragana",
         "dica": "ro",
         "data": [
@@ -1119,7 +1119,7 @@ const questonarioTeste = {
           }
         ],
         "id": "f8d4c805-025c-43e3-abcd-7f659b422d61",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? わ",
@@ -1140,7 +1140,7 @@ const questonarioTeste = {
           }
         ],
         "id": "bef7dfbb-c94f-4b22-b209-1ea6f7669812",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? を",
@@ -1161,7 +1161,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b1af651f-dc35-42a6-89dc-0b92b1a711d7",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ん",
@@ -1182,7 +1182,7 @@ const questonarioTeste = {
           }
         ],
         "id": "e5ae0cee-a859-4043-af02-f31e6c0ac9b4",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? が",
@@ -1203,7 +1203,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a57e1ce7-8a1e-49fd-8321-3cce6027eb2d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぎ",
@@ -1224,7 +1224,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7b57a3ba-7708-43b7-88b4-12f5abf0d5ea",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぐ",
@@ -1245,7 +1245,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b6908836-4258-4353-a8b8-f0a770d8f16a",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? げ",
@@ -1266,7 +1266,7 @@ const questonarioTeste = {
           }
         ],
         "id": "65feb335-aa71-4060-b8ec-ca8906928b17",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ご",
@@ -1287,7 +1287,7 @@ const questonarioTeste = {
           }
         ],
         "id": "ab07f7cd-776b-4392-a2d0-4faecf65506e",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ざ",
@@ -1308,7 +1308,7 @@ const questonarioTeste = {
           }
         ],
         "id": "287891d8-13c4-44d9-b475-795667102377",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? じ",
@@ -1329,7 +1329,7 @@ const questonarioTeste = {
           }
         ],
         "id": "66ccfb14-94fe-4f7b-aff1-7375e0e0cb1e",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ず",
@@ -1350,7 +1350,7 @@ const questonarioTeste = {
           }
         ],
         "id": "eda5232b-07e1-40ee-bb94-435f9a372d47",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぜ",
@@ -1371,7 +1371,7 @@ const questonarioTeste = {
           }
         ],
         "id": "e73600d4-d005-403c-bbe5-402da5f6b57b",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぞ",
@@ -1392,7 +1392,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a5dffbd1-2aae-446a-a0a8-97b6bb34a122",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? だ",
@@ -1413,7 +1413,7 @@ const questonarioTeste = {
           }
         ],
         "id": "baf869fa-31d4-458e-90f6-7abd8a3b2d4a",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぢ",
@@ -1434,7 +1434,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7902bb20-f3a4-45ab-b0e3-bacc4c872ae1",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? づ",
@@ -1455,10 +1455,10 @@ const questonarioTeste = {
           }
         ],
         "id": "ff8c6a0e-30f0-4d15-bdb2-8fa08efe85f8",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? de",
+        "name": "Que símbolo é esse? で",
         "escondida": "É o símbolo \"de\" do Hiragana",
         "dica": "de",
         "data": [
@@ -1476,10 +1476,10 @@ const questonarioTeste = {
           }
         ],
         "id": "e089a684-ff32-4da7-8b82-1a635ab9a563",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? do",
+        "name": "Que símbolo é esse? ど",
         "escondida": "É o símbolo \"do\" do Hiragana",
         "dica": "do",
         "data": [
@@ -1497,7 +1497,7 @@ const questonarioTeste = {
           }
         ],
         "id": "9ecc2f8c-b8b7-4664-995a-c00e0b7448ba",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ば",
@@ -1518,7 +1518,7 @@ const questonarioTeste = {
           }
         ],
         "id": "1dc277cf-8f72-4fec-a62c-972b3f094acb",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? び",
@@ -1539,7 +1539,7 @@ const questonarioTeste = {
           }
         ],
         "id": "62bd8398-41c3-405c-b602-1b3790acd8dd",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぶ",
@@ -1560,10 +1560,10 @@ const questonarioTeste = {
           }
         ],
         "id": "505e1e84-0189-43da-ba8b-a47786f03a38",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? be",
+        "name": "Que símbolo é esse? べ",
         "escondida": "É o símbolo \"be\" do Hiragana",
         "dica": "be",
         "data": [
@@ -1581,10 +1581,10 @@ const questonarioTeste = {
           }
         ],
         "id": "08805fed-96c8-4a39-a22c-df5349b36748",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? bo",
+        "name": "Que símbolo é esse? ぼ",
         "escondida": "É o símbolo \"bo\" do Hiragana",
         "dica": "bo",
         "data": [
@@ -1602,7 +1602,7 @@ const questonarioTeste = {
           }
         ],
         "id": "f5509cb1-9fb5-400a-b0bb-e7f5dade0843",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぱ",
@@ -1623,7 +1623,7 @@ const questonarioTeste = {
           }
         ],
         "id": "434fed97-80a1-41ff-a2e7-fc03f30e33dd",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぴ",
@@ -1644,7 +1644,7 @@ const questonarioTeste = {
           }
         ],
         "id": "05f8f66f-6954-472d-a1c6-61afaf751080",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぷ",
@@ -1665,10 +1665,10 @@ const questonarioTeste = {
           }
         ],
         "id": "88ba2f4f-38b8-4003-9841-55601b1739ba",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? pe",
+        "name": "Que símbolo é esse? ぺ",
         "escondida": "É o símbolo \"pe\" do Hiragana",
         "dica": "pe",
         "data": [
@@ -1686,10 +1686,10 @@ const questonarioTeste = {
           }
         ],
         "id": "f5d14359-2d33-4adb-88ec-b0188be71d3f",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
-        "name": "Que símbolo é esse? po",
+        "name": "Que símbolo é esse? ぽ",
         "escondida": "É o símbolo \"po\" do Hiragana",
         "dica": "po",
         "data": [
@@ -1707,7 +1707,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6fcec8dd-0731-4d51-9a0f-2192b601d437",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? きゃ",
@@ -1728,7 +1728,7 @@ const questonarioTeste = {
           }
         ],
         "id": "3bf38833-6bdb-4f4f-b955-6cb07eb64c6d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? きゅ",
@@ -1749,7 +1749,7 @@ const questonarioTeste = {
           }
         ],
         "id": "04286291-dffb-4069-8d64-d5563b906fb1",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? きょ",
@@ -1770,7 +1770,7 @@ const questonarioTeste = {
           }
         ],
         "id": "722e3af4-3048-4a42-86f2-07f42dcbe6f4",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? しゃ",
@@ -1791,7 +1791,7 @@ const questonarioTeste = {
           }
         ],
         "id": "daf07793-4d35-44d2-8bf2-dd9e0748c094",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? しゅ",
@@ -1812,7 +1812,7 @@ const questonarioTeste = {
           }
         ],
         "id": "f081afcb-808a-48c1-bd82-8f74fe50b064",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? しょ",
@@ -1833,7 +1833,7 @@ const questonarioTeste = {
           }
         ],
         "id": "4a3bb7b8-9427-471f-9c4e-9f8f47e89cea",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ちゃ",
@@ -1854,7 +1854,7 @@ const questonarioTeste = {
           }
         ],
         "id": "52e16836-8e54-46b9-9d41-6bfba46f0c71",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ちゅ",
@@ -1875,7 +1875,7 @@ const questonarioTeste = {
           }
         ],
         "id": "819446a9-ccaa-41d4-aed8-e07589f21fd6",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ちょ",
@@ -1896,7 +1896,7 @@ const questonarioTeste = {
           }
         ],
         "id": "43bf57af-305f-462e-b2e9-ddc07a0cab57",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? にゃ",
@@ -1917,7 +1917,7 @@ const questonarioTeste = {
           }
         ],
         "id": "dbd13ab8-465d-4c13-94f4-c6dd4b60a41d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? にゅ",
@@ -1938,7 +1938,7 @@ const questonarioTeste = {
           }
         ],
         "id": "46420786-a840-46ad-ae26-437835ffd520",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? にょ",
@@ -1959,7 +1959,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a8c8836d-a577-4174-945c-f9f9d0b12c54",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ひゃ",
@@ -1980,7 +1980,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a92a4859-f297-4218-ab96-f9f9a2943573",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ひゅ",
@@ -2001,7 +2001,7 @@ const questonarioTeste = {
           }
         ],
         "id": "aca662d5-11fd-4eda-a745-42ec495e9c3f",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ひょ",
@@ -2022,7 +2022,7 @@ const questonarioTeste = {
           }
         ],
         "id": "d01e3b2f-b3fe-4946-9d50-2affb427a9eb",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? みゃ",
@@ -2043,7 +2043,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b390e8b8-8302-4b17-b83a-7d44593e23c2",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? みゅ",
@@ -2064,7 +2064,7 @@ const questonarioTeste = {
           }
         ],
         "id": "9211f6cd-0155-4a5d-82f6-d3076831fb33",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? みょ",
@@ -2085,7 +2085,7 @@ const questonarioTeste = {
           }
         ],
         "id": "9dedf25b-3b51-466e-93ae-cb1901dde175",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? りゃ",
@@ -2106,7 +2106,7 @@ const questonarioTeste = {
           }
         ],
         "id": "197b4844-76e6-42e9-9b86-999f75766368",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? りゅ",
@@ -2127,7 +2127,7 @@ const questonarioTeste = {
           }
         ],
         "id": "351c23ec-5d81-4aa7-a01d-38c58943bbcb",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? りょ",
@@ -2148,7 +2148,7 @@ const questonarioTeste = {
           }
         ],
         "id": "1a918e80-07e9-411e-b722-2dded14d5f15",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぎゃ",
@@ -2169,7 +2169,7 @@ const questonarioTeste = {
           }
         ],
         "id": "f991b97b-1948-450b-afd9-124dc76ba0e6",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぎゅ",
@@ -2190,7 +2190,7 @@ const questonarioTeste = {
           }
         ],
         "id": "67418e49-6899-43fb-9e4c-de853ad5e854",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぎょ",
@@ -2211,7 +2211,7 @@ const questonarioTeste = {
           }
         ],
         "id": "78c2c1e8-324e-4c5e-bc17-0ff254577c09",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? じゃ",
@@ -2232,7 +2232,7 @@ const questonarioTeste = {
           }
         ],
         "id": "c30506a7-7bc6-4b53-9709-827059e07449",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? じゅ",
@@ -2253,7 +2253,7 @@ const questonarioTeste = {
           }
         ],
         "id": "c97fca33-b251-4394-9c02-642e96fe8a95",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? じょ",
@@ -2274,7 +2274,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6500fc36-a154-41c0-b315-bfe2538df4ea",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? びゃ",
@@ -2295,7 +2295,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6f35d497-d85f-45af-bb92-8cea3bff2387",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? びゅ",
@@ -2316,7 +2316,7 @@ const questonarioTeste = {
           }
         ],
         "id": "2857e115-24ad-4095-841b-40fb9da69722",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? びょ",
@@ -2337,7 +2337,7 @@ const questonarioTeste = {
           }
         ],
         "id": "d08ed8e5-ae87-464d-9ee6-8a50761b57db",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぴゃ",
@@ -2358,7 +2358,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b61f709b-c4aa-484d-9479-6ab18f749902",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぴゅ",
@@ -2379,7 +2379,7 @@ const questonarioTeste = {
           }
         ],
         "id": "5db026c0-4608-463a-96cf-20ffd343c359",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ぴょ",
@@ -2400,7 +2400,7 @@ const questonarioTeste = {
           }
         ],
         "id": "d4f71280-ada7-43db-b9c5-ff6c26d339fe",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? っ",
@@ -2421,7 +2421,7 @@ const questonarioTeste = {
           }
         ],
         "id": "126c8b7d-522a-4a9b-8746-d5df63c95d5c",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ア",
@@ -2442,7 +2442,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7b8298db-2294-43e7-961f-176bcc57fb14",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? イ",
@@ -2463,7 +2463,7 @@ const questonarioTeste = {
           }
         ],
         "id": "07e3f4e8-f7ca-4607-a530-22d43dae89c0",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ウ",
@@ -2484,7 +2484,7 @@ const questonarioTeste = {
           }
         ],
         "id": "682c4749-0750-4bf4-8a56-c618d6158019",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? エ",
@@ -2505,7 +2505,7 @@ const questonarioTeste = {
           }
         ],
         "id": "50e08e32-2382-4f0c-be38-f37a603a20a0",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? オ",
@@ -2526,7 +2526,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7687f7d8-f4ad-4039-b549-7234a1456327",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? カ",
@@ -2547,7 +2547,7 @@ const questonarioTeste = {
           }
         ],
         "id": "bae98ba9-590e-4254-b4de-66f15682ec2f",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? キ",
@@ -2568,7 +2568,7 @@ const questonarioTeste = {
           }
         ],
         "id": "1a159efd-2826-4100-a4f3-0ca20d99e4c9",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ク",
@@ -2589,7 +2589,7 @@ const questonarioTeste = {
           }
         ],
         "id": "8aad7ed4-ffbd-4f9b-93b3-36172c989e40",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ケ",
@@ -2610,7 +2610,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a39c291c-01e2-4720-8453-93934aff416d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? コ",
@@ -2631,7 +2631,7 @@ const questonarioTeste = {
           }
         ],
         "id": "4373abba-8944-4046-a533-8b683a75ba7c",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? サ",
@@ -2652,7 +2652,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b94c7523-2da1-4e7b-a1c7-4d9309c1cb72",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? シ",
@@ -2673,7 +2673,7 @@ const questonarioTeste = {
           }
         ],
         "id": "40fedd33-d4de-49a2-81f8-3f733f325f4c",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ス",
@@ -2694,7 +2694,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7f47a4e3-4be8-4cdc-be29-7ca6827496cf",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? セ",
@@ -2715,7 +2715,7 @@ const questonarioTeste = {
           }
         ],
         "id": "653333bf-f891-49de-a7e2-5982ed080e2c",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ソ",
@@ -2736,7 +2736,7 @@ const questonarioTeste = {
           }
         ],
         "id": "4e105cc6-a9e3-483b-9464-1cbbc46a9f82",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? タ",
@@ -2757,7 +2757,7 @@ const questonarioTeste = {
           }
         ],
         "id": "76e9c187-3cae-481a-ac4b-1e83734e2cc9",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? チ",
@@ -2778,7 +2778,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a27863fd-96ea-4e51-992e-485b9cffc88b",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ツ",
@@ -2799,7 +2799,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7fd01ac9-5fb4-4a55-96b8-5e10e8d96805",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? テ",
@@ -2820,7 +2820,7 @@ const questonarioTeste = {
           }
         ],
         "id": "be83b31a-39d0-4b89-a01c-66714c117775",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ト",
@@ -2841,7 +2841,7 @@ const questonarioTeste = {
           }
         ],
         "id": "dc034c74-c14b-4418-b93c-f2c88c72648d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ナ",
@@ -2862,7 +2862,7 @@ const questonarioTeste = {
           }
         ],
         "id": "18fe9ae1-3221-41a0-bf63-538e94de3453",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ニ",
@@ -2883,7 +2883,7 @@ const questonarioTeste = {
           }
         ],
         "id": "52399116-7f1f-4930-924b-39505a09bc78",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヌ",
@@ -2904,7 +2904,7 @@ const questonarioTeste = {
           }
         ],
         "id": "ab8f1f52-dc83-4aeb-908b-829ba57c6420",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ネ",
@@ -2925,7 +2925,7 @@ const questonarioTeste = {
           }
         ],
         "id": "fb4c9d1b-6d57-43fa-b274-d54fcfee4e5f",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ノ",
@@ -2946,7 +2946,7 @@ const questonarioTeste = {
           }
         ],
         "id": "76e1a615-5af1-4566-90e2-378b81a5fa60",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ハ",
@@ -2967,7 +2967,7 @@ const questonarioTeste = {
           }
         ],
         "id": "767a3d89-7977-4351-b458-4887c21ae0c7",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヒ",
@@ -2988,7 +2988,7 @@ const questonarioTeste = {
           }
         ],
         "id": "3cc796e0-a50a-40af-81fa-4df58f1bf90d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? フ",
@@ -3009,7 +3009,7 @@ const questonarioTeste = {
           }
         ],
         "id": "9e56668b-9692-4aca-b030-a0dd5a15199d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヘ",
@@ -3030,7 +3030,7 @@ const questonarioTeste = {
           }
         ],
         "id": "e2303d69-860f-4adb-944d-d7cd9b6876c9",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ホ",
@@ -3051,7 +3051,7 @@ const questonarioTeste = {
           }
         ],
         "id": "890888f6-5de5-4006-8900-20ee5e5f9928",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? マ",
@@ -3072,7 +3072,7 @@ const questonarioTeste = {
           }
         ],
         "id": "f66ac4a6-d6e0-4286-89a4-4d4ee44c4a4a",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ミ",
@@ -3093,7 +3093,7 @@ const questonarioTeste = {
           }
         ],
         "id": "364980cd-0b61-40a9-95d0-bbe5b1ce23ed",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ム",
@@ -3114,7 +3114,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6443a69e-b53a-42d4-b78c-11e6783c4b63",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? メ",
@@ -3135,7 +3135,7 @@ const questonarioTeste = {
           }
         ],
         "id": "87ebb62f-7055-497a-b819-1687f5aa438f",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? モ",
@@ -3156,7 +3156,7 @@ const questonarioTeste = {
           }
         ],
         "id": "35909f9b-09a0-45a4-8490-b2c6a13d086b",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヤ",
@@ -3177,7 +3177,7 @@ const questonarioTeste = {
           }
         ],
         "id": "58143ca0-61af-475b-a35c-c48fac06221c",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ユ",
@@ -3198,7 +3198,7 @@ const questonarioTeste = {
           }
         ],
         "id": "744e6f63-b625-42af-95de-121792b25b2e",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヨ",
@@ -3219,7 +3219,7 @@ const questonarioTeste = {
           }
         ],
         "id": "f63e0c43-3ca0-41d9-84ab-db2389b712e6",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ラ",
@@ -3240,7 +3240,7 @@ const questonarioTeste = {
           }
         ],
         "id": "802025dc-2e9d-458f-ab73-9b7679ba6b17",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? リ",
@@ -3261,7 +3261,7 @@ const questonarioTeste = {
           }
         ],
         "id": "f2b443d6-7bdb-4684-b245-4ce948ed6569",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ル",
@@ -3282,7 +3282,7 @@ const questonarioTeste = {
           }
         ],
         "id": "5c355fca-fcd2-40bc-aaef-5afb9971376e",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? レ",
@@ -3303,7 +3303,7 @@ const questonarioTeste = {
           }
         ],
         "id": "51031c39-9416-4901-b9fb-24a6d007e015",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ロ",
@@ -3324,7 +3324,7 @@ const questonarioTeste = {
           }
         ],
         "id": "1cccc019-6642-448e-81da-1d36c6461514",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ワ",
@@ -3345,7 +3345,7 @@ const questonarioTeste = {
           }
         ],
         "id": "44fa4c1f-4b2b-42dd-b4a9-a3318d4536aa",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヲ",
@@ -3366,7 +3366,7 @@ const questonarioTeste = {
           }
         ],
         "id": "91fc9e35-4f33-441e-b89e-dde1c4f951ab",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ン",
@@ -3387,7 +3387,7 @@ const questonarioTeste = {
           }
         ],
         "id": "416cdb5d-4cef-44d5-818b-8d920bba3fc1",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ガ",
@@ -3408,7 +3408,7 @@ const questonarioTeste = {
           }
         ],
         "id": "0dea9a75-7f01-4b2c-9046-2fd35fdb0d1d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ギ",
@@ -3429,7 +3429,7 @@ const questonarioTeste = {
           }
         ],
         "id": "aed782c4-61da-4be6-bbc5-4955611fb873",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? グ",
@@ -3450,7 +3450,7 @@ const questonarioTeste = {
           }
         ],
         "id": "ea7ad851-4a12-4390-9743-f552c21b58fa",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ゲ",
@@ -3471,7 +3471,7 @@ const questonarioTeste = {
           }
         ],
         "id": "4a6e9182-dbe1-422c-8ecf-d14a30ccef1b",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ゴ",
@@ -3492,7 +3492,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6ba0d993-d4e4-46a3-bd41-d22e9c3e14b8",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ザ",
@@ -3513,7 +3513,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b5d80040-00dd-469d-bb5e-fa905849c047",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ジ",
@@ -3534,7 +3534,7 @@ const questonarioTeste = {
           }
         ],
         "id": "c813e172-717e-49bc-8fb3-1f942e91fa03",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ズ",
@@ -3555,7 +3555,7 @@ const questonarioTeste = {
           }
         ],
         "id": "5f8a86d4-bc87-41ff-9c47-b8ecc892e11d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ゼ",
@@ -3576,7 +3576,7 @@ const questonarioTeste = {
           }
         ],
         "id": "98723489-4717-4c48-a15f-09c93d061d04",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ゾ",
@@ -3597,7 +3597,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7210a902-76b1-4872-84fa-2fbe293ce939",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ダ",
@@ -3618,7 +3618,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6dccf6b0-3a4a-42a0-914e-ca2eec239083",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヂ",
@@ -3639,7 +3639,7 @@ const questonarioTeste = {
           }
         ],
         "id": "fb3d2305-1037-423a-af2a-49d2e0939fec",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヅ",
@@ -3660,7 +3660,7 @@ const questonarioTeste = {
           }
         ],
         "id": "20e16174-c4aa-46a0-ad92-5c8becd5bd84",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? デ",
@@ -3681,7 +3681,7 @@ const questonarioTeste = {
           }
         ],
         "id": "4940d011-4c89-4a20-991a-9ec3a1d970de",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ド",
@@ -3702,7 +3702,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b74af3a2-6001-42d8-9238-dad6deee47ef",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? バ",
@@ -3723,7 +3723,7 @@ const questonarioTeste = {
           }
         ],
         "id": "ec9facbe-a152-43f5-96e8-4663ed05fbef",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ビ",
@@ -3744,7 +3744,7 @@ const questonarioTeste = {
           }
         ],
         "id": "8bc5acbd-c9a9-43a2-9dc6-45d98f7c4980",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ブ",
@@ -3765,7 +3765,7 @@ const questonarioTeste = {
           }
         ],
         "id": "8550f5b0-d70a-43b9-964c-80f0a9ab5fdf",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ベ",
@@ -3786,7 +3786,7 @@ const questonarioTeste = {
           }
         ],
         "id": "2b917887-e750-482a-9f9e-68cf88deee41",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ボ",
@@ -3807,7 +3807,7 @@ const questonarioTeste = {
           }
         ],
         "id": "d2ea8191-550f-455a-b231-e2ca159d9ef0",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? パ",
@@ -3828,7 +3828,7 @@ const questonarioTeste = {
           }
         ],
         "id": "8fce9446-4b26-4a00-8412-bd19f763f9c6",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ピ",
@@ -3849,7 +3849,7 @@ const questonarioTeste = {
           }
         ],
         "id": "269c4d88-93ac-4205-846a-3208f55cf3ca",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? プ",
@@ -3870,7 +3870,7 @@ const questonarioTeste = {
           }
         ],
         "id": "afac8015-521f-451c-bf89-7fba7f772b1f",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ペ",
@@ -3891,7 +3891,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7c9fbdd5-62c5-4616-81c7-247962b3c3be",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ポ",
@@ -3912,7 +3912,7 @@ const questonarioTeste = {
           }
         ],
         "id": "238d8ae2-a414-497f-9135-7782beaca222",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? キャ",
@@ -3933,7 +3933,7 @@ const questonarioTeste = {
           }
         ],
         "id": "086bc994-33d1-495e-9576-4130f83450bf",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? キュ",
@@ -3954,7 +3954,7 @@ const questonarioTeste = {
           }
         ],
         "id": "20f79a8d-8466-4865-a385-47e4284b7961",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? キョ",
@@ -3975,7 +3975,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7284bb12-fd47-470b-ae1f-dab2e2d87f6c",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? シャ",
@@ -3996,7 +3996,7 @@ const questonarioTeste = {
           }
         ],
         "id": "825c620d-0e1e-4355-93a5-4bd390f21910",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? シュ",
@@ -4017,7 +4017,7 @@ const questonarioTeste = {
           }
         ],
         "id": "34ecce90-8531-4436-985a-898cd7e6e063",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ショ",
@@ -4038,7 +4038,7 @@ const questonarioTeste = {
           }
         ],
         "id": "a1626895-cba8-464d-9158-9329438d6567",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? チャ",
@@ -4059,7 +4059,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7f13d557-ba71-4544-8f7a-1dd29f92714c",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? チュ",
@@ -4080,7 +4080,7 @@ const questonarioTeste = {
           }
         ],
         "id": "719f2ba9-f028-497e-b8c0-e7c647da8740",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? チョ",
@@ -4101,7 +4101,7 @@ const questonarioTeste = {
           }
         ],
         "id": "69c949ba-9623-43d7-ae11-82c3d49d9927",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ニャ",
@@ -4122,7 +4122,7 @@ const questonarioTeste = {
           }
         ],
         "id": "8064d6f0-7647-4337-bf08-8c09fa521696",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ニュ",
@@ -4143,7 +4143,7 @@ const questonarioTeste = {
           }
         ],
         "id": "ac59aecd-bff9-40be-a07f-b18664d7d7f1",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ニョ",
@@ -4164,7 +4164,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6c1171aa-7252-4023-80a5-cf0428444faf",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヒャ",
@@ -4185,7 +4185,7 @@ const questonarioTeste = {
           }
         ],
         "id": "250debd2-82cf-47a1-9f88-2d421d009b09",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヒュ",
@@ -4206,7 +4206,7 @@ const questonarioTeste = {
           }
         ],
         "id": "5dabc4af-fc7c-4076-aed7-73e87c39991a",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ヒョ",
@@ -4227,7 +4227,7 @@ const questonarioTeste = {
           }
         ],
         "id": "3a9394cf-541e-4b2e-b241-3ee9170f01c2",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ミャ",
@@ -4248,7 +4248,7 @@ const questonarioTeste = {
           }
         ],
         "id": "e33c177b-697a-48ab-860f-f94433f44f81",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ミュ",
@@ -4269,7 +4269,7 @@ const questonarioTeste = {
           }
         ],
         "id": "6e5f6997-0b52-49bf-b475-183207f0d0a2",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ミョ",
@@ -4290,7 +4290,7 @@ const questonarioTeste = {
           }
         ],
         "id": "bbe92340-2601-49b3-9889-947c2f292f6a",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? リャ",
@@ -4311,7 +4311,7 @@ const questonarioTeste = {
           }
         ],
         "id": "5835f6af-78ef-40bf-8421-d73e2695a527",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? リュ",
@@ -4332,7 +4332,7 @@ const questonarioTeste = {
           }
         ],
         "id": "3102910e-cade-437c-97d2-cc88e378897b",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? リョ",
@@ -4353,7 +4353,7 @@ const questonarioTeste = {
           }
         ],
         "id": "090f165a-412e-4733-b9cc-27474b396b18",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ギャ",
@@ -4374,7 +4374,7 @@ const questonarioTeste = {
           }
         ],
         "id": "d01a7e25-0e29-405b-bb0d-7c7ea7b1c8e3",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ギュ",
@@ -4395,7 +4395,7 @@ const questonarioTeste = {
           }
         ],
         "id": "3a5a3ddb-9cd6-4566-833d-3c9a28987b6b",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ギョ",
@@ -4416,7 +4416,7 @@ const questonarioTeste = {
           }
         ],
         "id": "9af606e1-35ed-448c-b17e-4defc015be54",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ジャ",
@@ -4437,7 +4437,7 @@ const questonarioTeste = {
           }
         ],
         "id": "c59f404f-23ed-40f2-ad3a-78cf967ba810",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ジュ",
@@ -4458,7 +4458,7 @@ const questonarioTeste = {
           }
         ],
         "id": "7ac0372d-fdcd-484f-84ee-c821f608d2ad",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ジョ",
@@ -4479,7 +4479,7 @@ const questonarioTeste = {
           }
         ],
         "id": "39af9933-8791-42cb-9614-abfad395cc16",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ビャ",
@@ -4500,7 +4500,7 @@ const questonarioTeste = {
           }
         ],
         "id": "453f0122-1183-4ac6-b78c-1f1354574108",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ビュ",
@@ -4521,7 +4521,7 @@ const questonarioTeste = {
           }
         ],
         "id": "eeb127e0-ddf6-4f29-99e2-f76e7225b927",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ビョ",
@@ -4542,7 +4542,7 @@ const questonarioTeste = {
           }
         ],
         "id": "1a4d4146-bf89-42c1-b860-405807111217",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ピャ",
@@ -4563,7 +4563,7 @@ const questonarioTeste = {
           }
         ],
         "id": "5e3148fc-2068-46d9-b4e1-8a31c9c077d9",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ピュ",
@@ -4584,7 +4584,7 @@ const questonarioTeste = {
           }
         ],
         "id": "8b35932d-ef80-4fab-9dbc-e4c686eb15b1",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ピョ",
@@ -4605,7 +4605,7 @@ const questonarioTeste = {
           }
         ],
         "id": "b72a61ed-94d0-4962-8e83-94cb2ab5e33d",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       },
       {
         "name": "Que símbolo é esse? ッ",
@@ -4626,7 +4626,7 @@ const questonarioTeste = {
           }
         ],
         "id": "75d8083c-2973-4292-9cfb-4188a2688746",
-        "multiplaEscolha": true
+        "multiplaEscolha": false
       }
     ]
   }

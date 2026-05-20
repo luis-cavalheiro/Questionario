@@ -68,9 +68,14 @@ function aleatorizarQuestionario(questionario){
 function aleatorizarItens(array){
     let currentIndex = array.length,  randomIndex;
 
+    console.log("ALEATORIZANDO", array);
+
+    // Se as alternativas forem de acertou/errou então não muda ordem das alternativas
+    if (array.length == 2 && array[0].name == "Acertou" && array[1].name == "Errou")
+        return array;
+
     // While there remain elements to shuffle...
     while (currentIndex != 0) {
-    
         // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
