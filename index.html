@@ -80,9 +80,9 @@
 
 
                 </script>
-                <div class="col-md-12 col-lg-6 mt-3">
+                <div class="col-md-12 col-lg-12 mt-3">
                     <div>
-                        <label for="quest-limit" class="mb-3">Limitar questionário</label>
+                        <label for="quest-limit" class="mb-3">Limitar quantidade de questões</label>
                         <div class="row w-100 mx-auto">
                             <div class="col-1 display-flex mr-2" onclick="adicionarStep(false)" style="cursor:pointer;"><i class="fa-solid fa-caret-left m-auto" style="font-size:32px"></i></div>
                             <div class="col-8 display-flex">
@@ -93,20 +93,52 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 col-lg-4">
                     <div class="display-flex mt-5" style="
                         border: 1px solid gainsboro;
                         border-radius: 5px;
                         padding: 12px;
                         min-width: fit-content;
                         ">
-                        <input type="checkbox" id="inverter" name="inverter" style="
+                        <input type="radio" id="naoInverter" name="limitar" style="
+                            max-width: 25px;
+                            height: 25px;
+                            min-height: unset;    
+                            margin-right: 13px;
+                        " />
+                        <label for="inverter">Começar do início</label>
+                    </div>                    
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="display-flex mt-5" style="
+                        border: 1px solid gainsboro;
+                        border-radius: 5px;
+                        padding: 12px;
+                        min-width: fit-content;
+                        ">
+                        <input type="radio" id="inverter" name="limitar" style="
                             max-width: 25px;
                             height: 25px;
                             min-height: unset;    
                             margin-right: 13px;
                         " />
                         <label for="inverter">Começar do fim</label>
+                    </div>                    
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="display-flex mt-5" style="
+                        border: 1px solid gainsboro;
+                        border-radius: 5px;
+                        padding: 12px;
+                        min-width: fit-content;
+                        ">
+                        <input type="radio" id="limitar-total" name="limitar" style="
+                            max-width: 25px;
+                            height: 25px;
+                            min-height: unset;    
+                            margin-right: 13px;
+                        " />
+                        <label for="limitar-total">Aleatorizar questões do limite</label>
                     </div>                    
                 </div>
              </div>
@@ -117,6 +149,13 @@
         var listaQuestionariosRecuperada;
         const fileInput = document.getElementById('fileInput');
         const reader = new FileReader();
+
+        // Set Radio
+        $("#naoInverter").attr('checked', true);
+        let radioInverter = sessionStorage.getItem(OPCAO_INVERTER);
+        $("#inverter").attr('checked', radioInverter == 'true');
+        let radioTotal = sessionStorage.getItem(OPCAO_LIMITAR_TOTAL);
+        $("#limitar-total").attr('checked', radioTotal == 'true');
 
         reader.onload = (e) => {
             var dadosArquivo = e.target.result;
@@ -200,8 +239,12 @@
         // Listar questionarios disponiveis para fazer
         function listarQuestionarios(listaQuestionarios){
             var html = '';
+            let maxNumeroQuestoes = 0;
 
             for(let i = 0; i < listaQuestionariosRecuperada.length; i++){
+                if (maxNumeroQuestoes < listaQuestionariosRecuperada[i].data.length)
+                    maxNumeroQuestoes = listaQuestionariosRecuperada[i].data.length
+
                 html += `
                     <div class="col-12 mb-4">
                         <div class="btn-lista">
@@ -214,6 +257,8 @@
                 `;
             }
 
+            $("#quest-limit").attr('max', maxNumeroQuestoes);
+
             $("#row-questionarios").html(html);
         }
 
@@ -224,10 +269,12 @@
 
             var limiteQuantidade = $("#quest-limit").val();
             var inverter = $("#inverter").prop('checked');
+            var limitarTotal = $("#limitar-total").prop('checked');
 
             // Limita quantas perguntas do questionário vai responder
             sessionStorage.setItem(LIMITE_PERGUNTAS, limiteQuantidade);
             sessionStorage.setItem(OPCAO_INVERTER, inverter);
+            sessionStorage.setItem(OPCAO_LIMITAR_TOTAL, limitarTotal);
 
             // Abre a página de fazer questionario
             window.location.href = "questionario.html";

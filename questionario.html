@@ -188,17 +188,30 @@
 
             limiteQuestionario = sessionStorage.getItem(LIMITE_PERGUNTAS);
             inverterQuestionario = sessionStorage.getItem(OPCAO_INVERTER);
+            // Pega as perguntas de todo o questionario, não só do começo ou fim
+            limitarTotalQuestionario = sessionStorage.getItem(OPCAO_LIMITAR_TOTAL);
             
+            // Se for para limitar questionario
             if (limiteQuestionario && Number(limiteQuestionario) != 0){
-                // remover questoes desnecessárias
+                // Transforma em número o limite
                 let num = Number(limiteQuestionario);
 
-                // Se tem itens a serem removidos
+                console.log("LIMITEEEE", limitarTotalQuestionario);
+                // Se o questionário tem mais questões do que o desejado
                 if (questionarioRecuperado.data.length > limiteQuestionario){
-                    if (inverterQuestionario == 'false'){
+                    // Remove questões aleatórias de todo o questionario
+                    if (limitarTotalQuestionario == 'true'){
+                        while (questionarioRecuperado.data.length > limiteQuestionario){
+                            console.log("Removendo", questionarioRecuperado.data.length);
+                            questionarioRecuperado.data.splice(getRandomIntInclusive(0, questionarioRecuperado.data.length-1), 1);
+                        }
+                    }
+                    // Começar a exlcuir questões a partir do  fim
+                    else if (inverterQuestionario == 'false'){
                         // remove os itens desnecessários
                         questionarioRecuperado.data.splice(limiteQuestionario);
                     }
+                    // Excluir questões do começo do questionário
                     else {
                         questionarioRecuperado.data = questionarioRecuperado.data.splice(limiteQuestionario*-1);
                         console.log("invertendo");
@@ -213,6 +226,13 @@
             else
                 alert('Não conseguiu recuperar o questionario');
         }
+
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1) + min);
+            }
+
 
         iniciarPaginaDeQuestionario();
 
@@ -563,10 +583,18 @@
             // console.log(respostas);
             mostrarTelaFinal();
 
-            $("#contagem-corretas").html(`${respostas.corretas}/${respostas.respondidas} Corretas`);
-            $("#contagem-erradas").html(`${respostas.incorretas}/${respostas.respondidas} Erradas`);
-            $("#contagem-nao-respondidas").html(`${respostas.naoRespondidas} Não Respondidas`);
-            $("#contagem-percentual").html(`${(respostas.corretas/respostas.respondidas*100).toFixed(0)} % de acerto`);            
+
+            let corretas = isNaN(respostas.corretas) ? 0 : respostas.corretas;
+            let incorretas = isNaN(respostas.incorretas) ? 0 : respostas.incorretas;
+            let respondidas = isNaN(respostas.respondidas) ? 0 : respostas.respondidas;
+            let naoRespondidas = isNaN(respostas.naoRespondidas) ? 0 : respostas.naoRespondidas;
+            let respPercentual = (corretas/respondidas * 100).toFixed(0);
+            respPercentual = isNaN(respPercentual) ? "": respPercentual + "% de acerto das respondidas";
+
+            $("#contagem-corretas").html(`${corretas}/${respondidas} Corretas`);
+            $("#contagem-erradas").html(`${incorretas}/${respondidas} Erradas`);
+            $("#contagem-nao-respondidas").html(`${naoRespondidas} Não Respondidas`);
+            $("#contagem-percentual").html(`${respPercentual}`);
         };
 
         function mostrarTelaFinal(){
