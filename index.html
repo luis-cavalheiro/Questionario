@@ -21,6 +21,11 @@
         <script type="text/javascript" src="db.js"></script>
     </head>
     <body>
+        <div id="nmode"></div>
+        
+        <script>
+            construirWidget("nmode");
+        </script>
         <!-- Botoes superior -->
         <div class="container mt-5">
             <!-- botoes -->
@@ -101,8 +106,6 @@
                         min-width: fit-content;
                         ">
                         <input type="radio" id="naoInverter" name="limitar" style="
-                            max-width: 25px;
-                            height: 25px;
                             min-height: unset;    
                             margin-right: 13px;
                         " />
@@ -117,8 +120,6 @@
                         min-width: fit-content;
                         ">
                         <input type="radio" id="inverter" name="limitar" style="
-                            max-width: 25px;
-                            height: 25px;
                             min-height: unset;    
                             margin-right: 13px;
                         " />
@@ -133,8 +134,6 @@
                         min-width: fit-content;
                         ">
                         <input type="radio" id="limitar-total" name="limitar" style="
-                            max-width: 25px;
-                            height: 25px;
                             min-height: unset;    
                             margin-right: 13px;
                         " />
@@ -232,6 +231,8 @@
                 $("#quest-limit").val(limiteQuestionario);
                 $("#limite-output").val(limiteQuestionario == 0 ? "sem limite" : limiteQuestionario);
             }
+
+            changeNightModeClasses(sessionStorage.getItem(NIGHT_MODE));
         }
 
         inicializar();

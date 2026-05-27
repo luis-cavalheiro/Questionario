@@ -20,6 +20,11 @@
         <script type="text/javascript" src="db.js"></script>
     </head>
     <body>
+        <div id="nmode"></div>
+        
+        <script>
+            construirWidget("nmode");
+        </script>
         <!-- TELA responder questionario ---------------------------------------------------------------------------------------------------------------------------------------------------- -->
         <div id="responder-questionario" class="container mt-5">
             <h1 id="titulo-questionario" style="color: gray">
@@ -57,7 +62,7 @@
                 </div>
             </div>
             <!-- Explicaçao resposta -->
-            <div id="row-explicacao" class="row dica" style="padding-top: 10px;padding-bottom: 10px;border-radius: 5px;">
+            <div id="row-explicacao" class="row dica mt-3" style="padding-top: 10px;padding-bottom: 10px;border-radius: 5px;">
                 <div class="col-12">
                     <div id="explicaco-pergunta">
                         Dica aqui
@@ -363,6 +368,8 @@
 
             var element_to_scroll_to = document.getElementById('titulo-questionario');
             element_to_scroll_to.scrollIntoView();
+
+            changeNightModeClasses(sessionStorage.getItem(NIGHT_MODE));
         }
 
         function mudarQuestao(iNovaAlternativa){

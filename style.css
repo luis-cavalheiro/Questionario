@@ -1,6 +1,13 @@
+html {
+	height: 100%;
+    /*background-color: #1f1f1f;*/
+	background-color: white;
+}
+
 body {
 	font-weight: 300;
 	font-size: 1rem;
+	background: unset;
 }
 
 i { 
@@ -12,7 +19,9 @@ img {
 	/*max-height: 200px;*/
 }
 
-
+.fa-puzzle-piece{
+	color: white
+}
 
 .container {
 	max-width: 93vw !important	;
@@ -22,7 +31,7 @@ img {
 	width: 100%;
     margin: auto;
     display: flex;
-    background: #1e1e1e;
+    background: #c89341;
     height: 50px;
     border-radius: 5px;
     cursor: pointer;
@@ -71,7 +80,7 @@ img {
 	appearance: none;
 	width: 15px;
 	height: 25px;
-	background: #000000;
+	background: #6d6d6d;
 	cursor: pointer;
 	border-radius: 10px;
 	
@@ -131,7 +140,7 @@ img {
 
 
 .button-selected {
-	background: #fff268 !important;
+	background: #d6cc69  !important;
 }
 
 .button-wrong {
@@ -186,7 +195,7 @@ img {
 }
 
 .bg-correta {
-	background: #68ff98 !important;
+	background: #3bc466  !important;
 }
 
 .bg-errada {
@@ -194,7 +203,7 @@ img {
 }
 
 input {
-	width: 100%;
+	width: 3vw;
     border: 1px solid #dedede;
     padding: 10px;
 }
@@ -331,4 +340,13 @@ h2 {
 		width: 35px;
 		height: 45px;
 	}
+}
+
+
+.night-mode-text {
+	color: white;
+}
+
+.night-mode-background{
+	background: #5f5f5f
 }
